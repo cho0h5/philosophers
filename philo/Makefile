@@ -22,4 +22,7 @@ re:
 	make fclean
 	make all
 
+test: all
+	./philo
+
 .PHONY: all clean fclean re
