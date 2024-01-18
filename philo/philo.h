@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/18 18:08:23 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/18 20:10:31 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ typedef struct	s_env
 	pthread_t		*philosophers;
 	pthread_mutex_t	*forks;
 }	t_env;
+
+typedef struct	s_philosopher
+{
+	int				id;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				number_of_must_eat;	// 필요한가?
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
+}	t_philosopher;
 
 long long	parse_int(char *str);
 

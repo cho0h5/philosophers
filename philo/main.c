@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/18 20:00:55 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/18 20:42:36 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@
 #include <sys/_pthread/_pthread_mutex_t.h>
 #include <sys/time.h>
 
-void	*philosophers(void *arg)
+void	*philosopher(void *arg)
 {
-	(void)arg;
-	printf("children\n");
+	t_philosopher	*philo;
+
+	philo = arg;
+	pthread_mutex_lock(&philo->left_fork);
+	pthread_mutex_lock(&philo->right_fork);
+	printf("thread: %d\n", philo->id);
 	return (NULL);
 }
 
@@ -55,10 +59,28 @@ static int	init(int argc, char **argv, t_env *env)
 	return (0);
 }
 
+static t_philosopher	*create_t_philosopher(t_env *env, int id)
+{
+	t_philosopher	*philo;
+
+	philo = malloc(sizeof(t_philosopher));
+	if (philo == NULL)
+		return (NULL);
+	philo->id = id;
+	philo->time_to_die = env->time_to_die;
+	philo->time_to_eat = env->time_to_eat;
+	philo->time_to_sleep = env->time_to_sleep;
+	philo->number_of_must_eat = env->number_of_must_eat;
+	philo->left_fork = env->forks[id];
+	philo->right_fork = env->forks[(id + 1) % env->number_of_philosophers];
+	return (philo);
+}
+
 int	main(int argc, char **argv)
 {
 	t_env			env;
 	int				i;
+	t_philosopher	*philo_env;
 //	struct timeval	time;
 
 	if (init(argc, argv, &env))
@@ -74,7 +96,8 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
-		pthread_create(&env.philosophers[i], NULL, philosophers, NULL);
+		philo_env = create_t_philosopher(&env, i);
+		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
 		i++;
 	}
 	i = 0;
