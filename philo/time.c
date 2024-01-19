@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:58:10 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/19 15:36:03 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 19:00:30 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ long long   get_time_in_ms(void)
 
 void	msleep(unsigned int ms)
 {
-	usleep(1000 * ms);
+    long long   start_time;
+
+    start_time = get_time_in_ms();
+    while (get_time_in_ms() - start_time < ms)
+        usleep(100);
 }

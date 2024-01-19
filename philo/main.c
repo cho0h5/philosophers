@@ -6,11 +6,12 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 17:43:03 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 17:54:10 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 void	*philosopher(void *arg)
 {
@@ -137,12 +138,15 @@ int	main(int argc, char **argv)
 		if (philo_env == NULL)
 			return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
+		// pthread_detach(env.philosophers[i]);
 		i++;
 	}
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
-		pthread_join(env.philosophers[i], NULL);
+		int	ret;
+		ret = pthread_join(env.philosophers[i], NULL);
+		printf("thread_join: %d\n", ret);
 		i++;
 	}
 	i = 0;
