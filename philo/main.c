@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 17:54:10 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 19:35:23 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,19 @@ void	*philosopher(void *arg)
 	last_eat_time = 0;
 	if (philo->id % 2 == 1)
 		msleep(1);
-	while (state != DEAD)
+	while (1)
 	{
 		if (state == THINKING)
 		{
+			if (get_time_in_ms() - philo->start_time - last_eat_time > philo->time_to_die)
+			{
+				printf("%lld %d \033[31mdead\033[0m\n", get_time_in_ms() - philo->start_time, philo->id);
+				break;
+			}
 			if (take_fork(philo->left_fork, philo->start_time, philo->id) &&
 				take_fork(philo->right_fork, philo->start_time, philo->id) &&
 				philo->left_fork != philo->right_fork)
 				state = EATING;
-			else
-			{
-				if (get_time_in_ms() - philo->start_time - last_eat_time > philo->time_to_die)
-				{
-					printf("%lld %d \033[31mdead\033[0m\n", get_time_in_ms() - philo->start_time, philo->id);
-					state = DEAD;
-				}
-			}
 		}
 		else if (state == EATING)
 		{
