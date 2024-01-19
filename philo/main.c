@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 13:13:15 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 13:53:17 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ void	*philosopher(void *arg)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->left_fork);
-		printf("thread: %d / grep l fork[%p]\n", philo->id, philo->left_fork);
 		pthread_mutex_lock(philo->right_fork);
-		printf("thread: %d / grep r fork[%p]\n", philo->id, philo->right_fork);
+		printf("timestamp_in_ms %d has taken a fork\n", philo->id);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->right_fork);
-		printf("thread: %d / grep r fork[%p]\n", philo->id, philo->right_fork);
 		pthread_mutex_lock(philo->left_fork);
-		printf("thread: %d / grep l fork[%p]\n", philo->id, philo->left_fork);
+		printf("timestamp_in_ms %d has taken a fork\n", philo->id);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 	}
