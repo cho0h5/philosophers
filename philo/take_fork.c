@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:08 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/19 15:02:46 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:07:55 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,11 @@ void	take_fork(t_fork *fork, int id)
 		}
 		pthread_mutex_unlock(&fork->mutex);
 	}
+}
+
+void	release_fork(t_fork *fork)
+{
+	pthread_mutex_lock(&fork->mutex);
+	fork->is_available = 1;
+	pthread_mutex_unlock(&fork->mutex);
 }

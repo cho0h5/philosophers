@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:02:44 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:04:10 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ size_t		ft_strlen(const char *s);
 long long	get_time_in_ms(void);
 
 void		take_fork(t_fork *fork, int id);
+void		release_fork(t_fork *fork);
 
 #endif
