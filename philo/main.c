@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:11:31 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:29:13 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	*philosopher(void *arg)
 	philo = (t_philosopher *)arg;
 	if (philo->id % 2 == 0)
 	{
-		take_fork(philo->left_fork, philo->id);
-		take_fork(philo->right_fork, philo->id);
-		printf("%lld %d is eating\n", get_time_in_ms(), philo->id);
+		take_fork(philo->left_fork, philo->start_time, philo->id);
+		take_fork(philo->right_fork, philo->start_time, philo->id);
+		printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
 		release_fork(philo->right_fork);
 		release_fork(philo->left_fork);
 	}
 	else
 	{
-		take_fork(philo->right_fork, philo->id);
-		take_fork(philo->left_fork, philo->id);
-		printf("%lld %d is eating\n", get_time_in_ms(), philo->id);
+		take_fork(philo->right_fork, philo->start_time, philo->id);
+		take_fork(philo->left_fork, philo->start_time, philo->id);
+		printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
 		release_fork(philo->left_fork);
 		release_fork(philo->right_fork);
 	}
@@ -72,6 +72,7 @@ static int	init(int argc, char **argv, t_env *env)
 	}
 	else
 		return (-1);
+	env->start_time = get_time_in_ms();
 	env->philosophers = malloc(sizeof(pthread_t) * env->number_of_philosophers);
 	env->forks = malloc(sizeof(t_fork) * env->number_of_philosophers);
 	if (env->philosophers == NULL || env->forks == NULL)
@@ -97,6 +98,7 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 	philo = malloc(sizeof(t_philosopher));
 	if (philo == NULL)
 		return (NULL);
+	philo->start_time = env->start_time;
 	philo->id = id;
 	philo->time_to_die = env->time_to_die;
 	philo->time_to_eat = env->time_to_eat;

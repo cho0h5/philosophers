@@ -6,13 +6,13 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:08 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/19 15:07:55 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:28:42 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	take_fork(t_fork *fork, int id)
+void	take_fork(t_fork *fork, long long start_time, int id)
 {
 	while (1)
 	{
@@ -20,7 +20,7 @@ void	take_fork(t_fork *fork, int id)
 		if (fork->is_available == 1)
 		{
 			fork->is_available = 0;
-			printf("%lld %d has taken a fork\n", get_time_in_ms(), id);
+			printf("%lld %d has taken a fork\n", get_time_in_ms() - start_time, id);
 			pthread_mutex_unlock(&fork->mutex);
 			return ;
 		}
