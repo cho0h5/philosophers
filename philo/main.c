@@ -6,31 +6,44 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:50:09 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:04:01 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <unistd.h>
 
 void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
+	t_state			state;
 
 	philo = (t_philosopher *)arg;
+	state = THINKING;
 	while (1)
 	{
 		if (philo->id % 2 == 0)
 		{
-			take_fork(philo->left_fork, philo->start_time, philo->id);
-			take_fork(philo->right_fork, philo->start_time, philo->id);
-			printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
-			msleep(philo->time_to_eat);
-			release_fork(philo->right_fork);
-			release_fork(philo->left_fork);
-			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
-			msleep(philo->time_to_sleep);
-			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+			if (state == THINKING)
+			{
+				take_fork(philo->left_fork, philo->start_time, philo->id);
+				take_fork(philo->right_fork, philo->start_time, philo->id);
+				state = EATING;
+			}
+			else if (state == EATING)
+			{
+				printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
+				msleep(philo->time_to_eat);
+				release_fork(philo->right_fork);
+				release_fork(philo->left_fork);
+				state = SLEEPING;
+			}
+			else if (state == SLEEPING)
+			{
+				printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
+				msleep(philo->time_to_sleep);
+				printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+				state = THINKING;
+			}
 		}
 		else
 		{
@@ -137,7 +150,7 @@ int	main(int argc, char **argv)
 	{
 		philo_env = create_t_philosopher(&env, i);
 		if (philo_env == NULL)
-			return (1);	// 만들어진 쓰레드 회수해줘야함
+		return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
 		i++;
 	}

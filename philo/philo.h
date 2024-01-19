@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:35:00 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:01:47 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ typedef struct	s_philosopher
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 }	t_philosopher;
+
+typedef enum	e_state
+{
+	THINKING,
+	EATING,
+	SLEEPING,
+}	t_state;
 
 long long	parse_int(char *str);
 
