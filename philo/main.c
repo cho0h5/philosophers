@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 17:16:38 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 17:43:03 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	*philosopher(void *arg)
 		if (state == THINKING)
 		{
 			if (take_fork(philo->left_fork, philo->start_time, philo->id) &&
-				take_fork(philo->right_fork, philo->start_time, philo->id))
+				take_fork(philo->right_fork, philo->start_time, philo->id) &&
+				philo->left_fork != philo->right_fork)
 				state = EATING;
 			else
 			{
