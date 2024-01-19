@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 17:10:59 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 17:16:38 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*philosopher(void *arg)
 	philo = (t_philosopher *)arg;
 	state = THINKING;
 	last_eat_time = 0;
+	if (philo->id % 2 == 1)
+		msleep(1);
 	while (state != DEAD)
 	{
 		if (state == THINKING)
