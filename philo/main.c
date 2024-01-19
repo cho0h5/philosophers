@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 14:04:39by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:02:43 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void	*philosopher(void *arg)
 	philo = (t_philosopher *)arg;
 	if (philo->id % 2 == 0)
 	{
-		take_fork(philo);
+		take_fork(philo->left_fork, philo->id);
+		take_fork(philo->right_fork, philo->id);
 		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
 	}
 	else
 	{
-		take_fork(philo);
+		take_fork(philo->left_fork, philo->id);
+		take_fork(philo->right_fork, philo->id);
 		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
 	}
 
