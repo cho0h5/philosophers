@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:41:51 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:43:23 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,32 @@ void	*philosopher(void *arg)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)arg;
-	if (philo->id % 2 == 0)
+	while (1)
 	{
-		take_fork(philo->left_fork, philo->start_time, philo->id);
-		take_fork(philo->right_fork, philo->start_time, philo->id);
-		printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
-		msleep(philo->time_to_eat);
-		release_fork(philo->right_fork);
-		release_fork(philo->left_fork);
-		printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
-		msleep(philo->time_to_sleep);
-		printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
-	}
-	else
-	{
-		take_fork(philo->right_fork, philo->start_time, philo->id);
-		take_fork(philo->left_fork, philo->start_time, philo->id);
-		printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
-		msleep(philo->time_to_eat);
-		release_fork(philo->left_fork);
-		release_fork(philo->right_fork);
-		printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
-		msleep(philo->time_to_sleep);
-		printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+		if (philo->id % 2 == 0)
+		{
+			take_fork(philo->left_fork, philo->start_time, philo->id);
+			take_fork(philo->right_fork, philo->start_time, philo->id);
+			printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
+			msleep(philo->time_to_eat);
+			release_fork(philo->right_fork);
+			release_fork(philo->left_fork);
+			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
+			msleep(philo->time_to_sleep);
+			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+		}
+		else
+		{
+			take_fork(philo->right_fork, philo->start_time, philo->id);
+			take_fork(philo->left_fork, philo->start_time, philo->id);
+			printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
+			msleep(philo->time_to_eat);
+			release_fork(philo->left_fork);
+			release_fork(philo->right_fork);
+			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
+			msleep(philo->time_to_sleep);
+			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+		}
 	}
 
 	// while (philo->state != DEAD)
@@ -80,7 +83,7 @@ static int	init(int argc, char **argv, t_env *env)
 		env->number_of_must_eat = parse_int(argv[5]);
 	}
 	else
-		return (-1);
+	return (-1);
 	env->start_time = get_time_in_ms();
 	env->philosophers = malloc(sizeof(pthread_t) * env->number_of_philosophers);
 	env->forks = malloc(sizeof(t_fork) * env->number_of_philosophers);
@@ -134,7 +137,7 @@ int	main(int argc, char **argv)
 	{
 		philo_env = create_t_philosopher(&env, i);
 		if (philo_env == NULL)
-			return (1);	// 만들어진 쓰레드 회수해줘야함
+		return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
 		i++;
 	}
