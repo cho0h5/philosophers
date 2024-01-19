@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 16:30:52 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:32:26 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,6 @@ void	*philosopher(void *arg)
 			state = THINKING;
 		}
 	}
-
-	// while (philo->state != DEAD)
-	// {
-	// 	if (philo->state == EATING)
-	// 		eating(philo);
-	// 	else if (philo->state == SLEEPING)
-	// 		sleeping(philo);
-	// 	else if (philo->state == THINKING)
-	// 		thinking(philo);
-	// 	else if (philo->state == FORK)
-	// 		take_fork(philo);
-	// 	else if (philo->state == DEAD)
-	// 		break ;
-	// }
 	return (NULL);
 }
 
