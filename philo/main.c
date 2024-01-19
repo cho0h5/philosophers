@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:43:23 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:47:40 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 	if (philo == NULL)
 		return (NULL);
 	philo->start_time = env->start_time;
-	philo->id = id;
+	philo->id = id + 1;
 	philo->time_to_die = env->time_to_die;
 	philo->time_to_eat = env->time_to_eat;
 	philo->time_to_sleep = env->time_to_sleep;
