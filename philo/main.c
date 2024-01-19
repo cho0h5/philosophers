@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/18 20:42:36 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 11:49:48 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	main(int argc, char **argv)
 	while (i < env.number_of_philosophers)
 	{
 		philo_env = create_t_philosopher(&env, i);
+		if (philo_env == NULL)
+			return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
 		i++;
 	}
