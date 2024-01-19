@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 11:49:48 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 13:00:58 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,24 @@ void	*philosopher(void *arg)
 	t_philosopher	*philo;
 
 	philo = arg;
-	pthread_mutex_lock(&philo->left_fork);
-	pthread_mutex_lock(&philo->right_fork);
-	printf("thread: %d\n", philo->id);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		printf("thread: %d / grep l fork[%p]\n", philo->id, philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+		printf("thread: %d / grep r fork[%p]\n", philo->id, philo->right_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		printf("thread: %d / grep l fork[%p]\n", philo->id, philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+		printf("thread: %d / grep r fork[%p]\n", philo->id, philo->right_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
 	return (NULL);
 }
 
@@ -71,8 +86,8 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 	philo->time_to_eat = env->time_to_eat;
 	philo->time_to_sleep = env->time_to_sleep;
 	philo->number_of_must_eat = env->number_of_must_eat;
-	philo->left_fork = env->forks[id];
-	philo->right_fork = env->forks[(id + 1) % env->number_of_philosophers];
+	philo->left_fork = &env->forks[id];
+	philo->right_fork = &env->forks[(id + 1) % env->number_of_philosophers];
 	return (philo);
 }
 
