@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:06:51 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:11:31 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*philosopher(void *arg)
 	{
 		take_fork(philo->left_fork, philo->id);
 		take_fork(philo->right_fork, philo->id);
-		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
+		printf("%lld %d is eating\n", get_time_in_ms(), philo->id);
 		release_fork(philo->right_fork);
 		release_fork(philo->left_fork);
 	}
@@ -29,7 +29,7 @@ void	*philosopher(void *arg)
 	{
 		take_fork(philo->right_fork, philo->id);
 		take_fork(philo->left_fork, philo->id);
-		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
+		printf("%lld %d is eating\n", get_time_in_ms(), philo->id);
 		release_fork(philo->left_fork);
 		release_fork(philo->right_fork);
 	}
