@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 16:01:47 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:06:39 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct s_fork
 {
+	int				owner;
 	int				is_available;
 	pthread_mutex_t	mutex;
 }	t_fork;
@@ -67,7 +68,7 @@ size_t		ft_strlen(const char *s);
 long long	get_time_in_ms(void);
 void		msleep(unsigned int ms);
 
-void		take_fork(t_fork *fork, long long start_time, int id);
+int			take_fork(t_fork *fork, long long start_time, int id);
 void		release_fork(t_fork *fork);
 
 #endif

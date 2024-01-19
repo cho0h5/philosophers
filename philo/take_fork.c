@@ -6,26 +6,30 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:38:08 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/19 15:28:42 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:09:40 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	take_fork(t_fork *fork, long long start_time, int id)
+int	take_fork(t_fork *fork, long long start_time, int id)
 {
-	while (1)
+	pthread_mutex_lock(&fork->mutex);
+	if (fork->is_available == 1)
 	{
-		pthread_mutex_lock(&fork->mutex);
-		if (fork->is_available == 1)
-		{
-			fork->is_available = 0;
-			printf("%lld %d has taken a fork\n", get_time_in_ms() - start_time, id);
-			pthread_mutex_unlock(&fork->mutex);
-			return ;
-		}
+		fork->is_available = 0;
+		fork->owner = id;
+		printf("%lld %d has taken a fork\n", get_time_in_ms() - start_time, id);
 		pthread_mutex_unlock(&fork->mutex);
+		return (1);
 	}
+	else if (fork->is_available == 0 && fork->owner == id)
+	{
+		pthread_mutex_unlock(&fork->mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&fork->mutex);
+	return (0);
 }
 
 void	release_fork(t_fork *fork)
