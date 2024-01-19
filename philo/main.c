@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 17:07:56 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 17:10:59 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*philosopher(void *arg)
 		{
 			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
 			msleep(philo->time_to_sleep);
-			printf("%lld %d is thinking\n",get_time_in_ms() - philo->start_time, philo->id);
+			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
 			state = THINKING;
 		}
 	}
