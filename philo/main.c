@@ -6,16 +6,11 @@
 /*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 13:53:17 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:04:39by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/_pthread/_pthread_mutex_t.h>
-#include <sys/time.h>
 
 void	*philosopher(void *arg)
 {
@@ -26,7 +21,7 @@ void	*philosopher(void *arg)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		pthread_mutex_lock(philo->right_fork);
-		printf("timestamp_in_ms %d has taken a fork\n", philo->id);
+		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 	}
@@ -34,7 +29,7 @@ void	*philosopher(void *arg)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(philo->left_fork);
-		printf("timestamp_in_ms %d has taken a fork\n", philo->id);
+		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 	}
@@ -94,12 +89,12 @@ int	main(int argc, char **argv)
 	t_env			env;
 	int				i;
 	t_philosopher	*philo_env;
-//	struct timeval	time;
+	struct timeval	time;
 
 	if (init(argc, argv, &env))
 		return (1);
-//	gettimeofday(&time, NULL);
-//	printf("%ld %d\n", time.tv_sec, time.tv_usec);
+	gettimeofday(&time, NULL);
+	printf("%ld %d\n", time.tv_sec, time.tv_usec);
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{

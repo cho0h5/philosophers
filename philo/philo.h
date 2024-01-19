@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 12:58:15 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 14:05:39 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdlib.h>
 
 # define NOT_INT 900000000000
 
@@ -45,5 +46,7 @@ typedef struct	s_philosopher
 long long	parse_int(char *str);
 
 size_t	ft_strlen(const char *s);
+
+long long get_time_in_ms();
 
 #endif
