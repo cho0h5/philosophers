@@ -6,11 +6,12 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 15:29:13 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 15:39:44 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 void	*philosopher(void *arg)
 {
@@ -22,16 +23,22 @@ void	*philosopher(void *arg)
 		take_fork(philo->left_fork, philo->start_time, philo->id);
 		take_fork(philo->right_fork, philo->start_time, philo->id);
 		printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
+		msleep(philo->time_to_eat);
 		release_fork(philo->right_fork);
 		release_fork(philo->left_fork);
+		printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
+		msleep(philo->time_to_sleep);
 	}
 	else
 	{
 		take_fork(philo->right_fork, philo->start_time, philo->id);
 		take_fork(philo->left_fork, philo->start_time, philo->id);
 		printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
+		msleep(philo->time_to_eat);
 		release_fork(philo->left_fork);
 		release_fork(philo->right_fork);
+		printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
+		msleep(philo->time_to_sleep);
 	}
 
 	// while (philo->state != DEAD)
@@ -60,7 +67,7 @@ static int	init(int argc, char **argv, t_env *env)
 		env->time_to_die = parse_int(argv[2]);
 		env->time_to_eat = parse_int(argv[3]);
 		env->time_to_sleep = parse_int(argv[4]);
-		env->time_to_sleep = -1;
+		env->number_of_must_eat = -1;
 	}
 	else if (argc == 6)
 	{
