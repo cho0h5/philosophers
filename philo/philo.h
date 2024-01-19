@@ -6,7 +6,7 @@
 /*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 14:05:39 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:33:15 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 
 #include <stdio.h>
 
+typedef struct s_fork
+{
+	int				is_available;
+	pthread_mutex_t	mutex;
+}	t_fork;
+
 typedef struct	s_env
 {
 	int				number_of_philosophers;
@@ -29,8 +35,9 @@ typedef struct	s_env
 	int				time_to_sleep;
 	int				number_of_must_eat;
 	pthread_t		*philosophers;
-	pthread_mutex_t	*forks;
+	t_fork			*forks;
 }	t_env;
+
 
 typedef struct	s_philosopher
 {
@@ -39,8 +46,8 @@ typedef struct	s_philosopher
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_must_eat;	// 필요한가?
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 }	t_philosopher;
 
 long long	parse_int(char *str);

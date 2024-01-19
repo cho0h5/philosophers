@@ -19,25 +19,27 @@ void	*philosopher(void *arg)
 	philo = arg;
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(philo->left_fork);
-		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(&philo->left_fork->mutex);
+		pthread_mutex_lock(&philo->right_fork->mutex);
 		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(&philo->right_fork->mutex);
+		pthread_mutex_unlock(&philo->left_fork->mutex);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->right_fork);
-		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(&philo->right_fork->mutex);
+		pthread_mutex_lock(&philo->left_fork->mutex);
 		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(&philo->right_fork->mutex);
+		pthread_mutex_unlock(&philo->left_fork->mutex);
 	}
 	return (NULL);
 }
 
 static int	init(int argc, char **argv, t_env *env)
 {
+	int	i;
+
 	if (argc == 5)
 	{
 		env->number_of_philosophers = parse_int(argv[1]);
@@ -57,12 +59,19 @@ static int	init(int argc, char **argv, t_env *env)
 	else
 		return (-1);
 	env->philosophers = malloc(sizeof(pthread_t) * env->number_of_philosophers);
-	env->forks = malloc(sizeof(pthread_mutex_t) * env->number_of_philosophers);
+	env->forks = malloc(sizeof(t_fork) * env->number_of_philosophers);
 	if (env->philosophers == NULL || env->forks == NULL)
 	{
 		free(env->philosophers);
 		free(env->forks);
 		return (-1);
+	}
+	i = 0;
+	while (i < env->number_of_philosophers)
+	{
+		pthread_mutex_init(&env->forks[i].mutex, NULL);
+		env->forks[i].is_available = 1;
+		i++;
 	}
 	return (0);
 }
@@ -98,12 +107,6 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
-		pthread_mutex_init(&env.forks[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < env.number_of_philosophers)
-	{
 		philo_env = create_t_philosopher(&env, i);
 		if (philo_env == NULL)
 			return (1);	// 만들어진 쓰레드 회수해줘야함
@@ -119,7 +122,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
-		pthread_mutex_destroy(&env.forks[i]);
+		pthread_mutex_destroy(&env.forks[i].mutex);
 		i++;
 	}
 	return (0);
