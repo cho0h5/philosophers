@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 13:00:58 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 13:13:15 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	*philosopher(void *arg)
 	}
 	else
 	{
-		pthread_mutex_lock(philo->left_fork);
-		printf("thread: %d / grep l fork[%p]\n", philo->id, philo->left_fork);
 		pthread_mutex_lock(philo->right_fork);
 		printf("thread: %d / grep r fork[%p]\n", philo->id, philo->right_fork);
-		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+		printf("thread: %d / grep l fork[%p]\n", philo->id, philo->left_fork);
 		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
 	}
 	return (NULL);
 }
