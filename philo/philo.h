@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 16:06:39 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:22:53 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef enum	e_state
 	THINKING,
 	EATING,
 	SLEEPING,
+	DEAD,
 }	t_state;
 
 long long	parse_int(char *str);

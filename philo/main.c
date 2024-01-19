@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 16:10:33 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:25:30 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,43 @@ void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
 	t_state			state;
+	long long		last_eat_time;
 
 	philo = (t_philosopher *)arg;
 	state = THINKING;
-	while (1)
+	last_eat_time = 0;
+	while (state != DEAD)
 	{
-		if (philo->id % 2 == 0)
+		if (state == THINKING)
 		{
-			if (state == THINKING)
+			if (take_fork(philo->left_fork, philo->start_time, philo->id) &&
+				take_fork(philo->right_fork, philo->start_time, philo->id))
+				state = EATING;
+			else
 			{
-				if (take_fork(philo->left_fork, philo->start_time, philo->id) &&
-						take_fork(philo->right_fork, philo->start_time, philo->id))
-					state = EATING;
-			}
-			else if (state == EATING)
-			{
-				printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
-				msleep(philo->time_to_eat);
-				release_fork(philo->right_fork);
-				release_fork(philo->left_fork);
-				state = SLEEPING;
-			}
-			else if (state == SLEEPING)
-			{
-				printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
-				msleep(philo->time_to_sleep);
-				printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
-				state = THINKING;
+				if (get_time_in_ms() - philo->start_time - last_eat_time > philo->time_to_die)
+				{
+					printf("%lld %d dead\n", get_time_in_ms() - philo->start_time, philo->id);
+					state = DEAD;
+				}
+				
 			}
 		}
-		else
+		else if (state == EATING)
 		{
-			take_fork(philo->right_fork, philo->start_time, philo->id);
-			take_fork(philo->left_fork, philo->start_time, philo->id);
 			printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
+			last_eat_time = get_time_in_ms() - philo->start_time;
 			msleep(philo->time_to_eat);
-			release_fork(philo->left_fork);
 			release_fork(philo->right_fork);
+			release_fork(philo->left_fork);
+			state = SLEEPING;
+		}
+		else if (state == SLEEPING)
+		{
 			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
 			msleep(philo->time_to_sleep);
-			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+			printf("%lld %d is thinking\n",get_time_in_ms() - philo->start_time, philo->id);
+			state = THINKING;
 		}
 	}
 
