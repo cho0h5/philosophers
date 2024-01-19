@@ -6,7 +6,7 @@
 /*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:52:11 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 14:33:15 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:58:37 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ typedef struct	s_philosopher
 
 long long	parse_int(char *str);
 
-size_t	ft_strlen(const char *s);
+size_t		ft_strlen(const char *s);
 
-long long get_time_in_ms();
+long long	get_time_in_ms(void);
+
+void		take_fork(t_philosopher *philo);
 
 #endif

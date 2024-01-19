@@ -16,23 +16,31 @@ void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
 
-	philo = arg;
+	philo = (t_philosopher *)arg;
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->left_fork->mutex);
-		pthread_mutex_lock(&philo->right_fork->mutex);
+		take_fork(philo);
 		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
-		pthread_mutex_unlock(&philo->right_fork->mutex);
-		pthread_mutex_unlock(&philo->left_fork->mutex);
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->right_fork->mutex);
-		pthread_mutex_lock(&philo->left_fork->mutex);
+		take_fork(philo);
 		printf("%lld %d has taken a fork\n", get_time_in_ms(), philo->id);
-		pthread_mutex_unlock(&philo->right_fork->mutex);
-		pthread_mutex_unlock(&philo->left_fork->mutex);
 	}
+
+	// while (philo->state != DEAD)
+	// {
+	// 	if (philo->state == EATING)
+	// 		eating(philo);
+	// 	else if (philo->state == SLEEPING)
+	// 		sleeping(philo);
+	// 	else if (philo->state == THINKING)
+	// 		thinking(philo);
+	// 	else if (philo->state == FORK)
+	// 		take_fork(philo);
+	// 	else if (philo->state == DEAD)
+	// 		break ;
+	// }
 	return (NULL);
 }
 

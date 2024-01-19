@@ -6,13 +6,13 @@
 /*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:58:10 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/19 14:03:43 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:58:14 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long   get_time_in_ms()
+long long   get_time_in_ms(void)
 {
     struct timeval  tv;
     long long       ms;
