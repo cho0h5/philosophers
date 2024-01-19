@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 16:25:30 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/19 16:30:52 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*philosopher(void *arg)
 			{
 				if (get_time_in_ms() - philo->start_time - last_eat_time > philo->time_to_die)
 				{
-					printf("%lld %d dead\n", get_time_in_ms() - philo->start_time, philo->id);
+					printf("%lld %d \033[31mdead\033[0m\n", get_time_in_ms() - philo->start_time, philo->id);
 					state = DEAD;
 				}
 				
