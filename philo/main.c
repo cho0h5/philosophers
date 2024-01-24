@@ -18,13 +18,15 @@ void	*philosopher(void *arg)
 	t_philosopher	*philo;
 	t_state			state;
 	long long		last_eat_time;
+	long long		eat_count;
 
 	philo = (t_philosopher *)arg;
 	state = THINKING;
 	last_eat_time = 0;
+	eat_count = 0;
 	if (philo->id % 2 == 1)
 		msleep(1);
-	while (1)
+	while (philo->number_of_must_eat == -1 || eat_count < philo->number_of_must_eat)
 	{
 		if (state == THINKING)
 		{
@@ -40,6 +42,7 @@ void	*philosopher(void *arg)
 		}
 		else if (state == EATING)
 		{
+			eat_count++;
 			printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
 			last_eat_time = get_time_in_ms() - philo->start_time;
 			msleep(philo->time_to_eat);
