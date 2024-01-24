@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/19 19:35:23 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/24 20:25:08 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*philosopher(void *arg)
 		{
 			if (get_time_in_ms() - philo->start_time - last_eat_time > philo->time_to_die)
 			{
-				printf("%lld %d \033[31mdead\033[0m\n", get_time_in_ms() - philo->start_time, philo->id);
+				printf("%lld %d dead\n", get_time_in_ms() - philo->start_time, philo->id);
 				break;
 			}
 			if (take_fork(philo->left_fork, philo->start_time, philo->id) &&
@@ -143,9 +143,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
-		int	ret;
-		ret = pthread_join(env.philosophers[i], NULL);
-		printf("thread_join: %d\n", ret);
+		pthread_join(env.philosophers[i], NULL);
 		i++;
 	}
 	i = 0;
