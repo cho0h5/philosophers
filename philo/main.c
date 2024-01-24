@@ -127,7 +127,6 @@ int	main(int argc, char **argv)
 	if (init(argc, argv, &env))
 		return (1);
 	gettimeofday(&time, NULL);
-	printf("%ld %d\n", time.tv_sec, time.tv_usec);
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
