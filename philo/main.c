@@ -6,7 +6,7 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/24 20:25:08 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/25 11:48:25 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*philosopher(void *arg)
 	last_eat_time = 0;
 	eat_count = 0;
 	if (philo->id % 2 == 1)
-		msleep(1);
+		msleep(philo->time_to_eat);
 	while (philo->number_of_must_eat == -1 || eat_count < philo->number_of_must_eat)
 	{
 		if (state == THINKING)
