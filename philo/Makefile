@@ -23,6 +23,6 @@ re:
 	make all
 
 test: all
-	./philo 20 210 100 100
+	./philo 50 210 100 100
 
 .PHONY: all clean fclean re
