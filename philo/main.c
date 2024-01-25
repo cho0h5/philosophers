@@ -6,12 +6,13 @@
 /*   By: Youngho Cho <younghoc@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:01:54 by Youngho Cho       #+#    #+#             */
-/*   Updated: 2024/01/25 11:48:25 by Youngho Cho      ###   ########.fr       */
+/*   Updated: 2024/01/25 13:56:09 by Youngho Cho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+#include <unistd.h>
 
 void	*philosopher(void *arg)
 {
@@ -57,6 +58,7 @@ void	*philosopher(void *arg)
 			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
 			state = THINKING;
 		}
+		usleep(100);
 	}
 	return (NULL);
 }
