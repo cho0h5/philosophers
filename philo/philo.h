@@ -39,6 +39,7 @@ typedef struct	s_env
 	int				number_of_must_eat;
 	pthread_t		*philosophers;
 	t_fork			*forks;
+	pthread_mutex_t	mutex_wait;
 	pthread_mutex_t	mutex_print;
 }	t_env;
 

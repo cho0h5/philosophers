@@ -20,6 +20,8 @@ void	*philosopher(void *arg)
 	long long		eat_count;
 
 	philo = (t_philosopher *)arg;
+	pthread_mutex_lock(&philo->env->mutex_wait);
+	pthread_mutex_unlock(&philo->env->mutex_wait);
 	state = THINKING;
 	last_eat_time = 0;
 	eat_count = 0;
@@ -91,7 +93,9 @@ static int	init(int argc, char **argv, t_env *env)
 		env->forks[i].is_available = 1;
 		i++;
 	}
+	pthread_mutex_init(&env->mutex_wait, NULL);
 	pthread_mutex_init(&env->mutex_print, NULL);
+	pthread_mutex_lock(&env->mutex_wait);
 	return (0);
 }
 
@@ -125,6 +129,7 @@ int	main(int argc, char **argv)
 			return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i++], NULL, philosopher, philo_env);
 	}
+	pthread_mutex_unlock(&env.mutex_wait);
 	i = 0;
 	while (i < env.number_of_philosophers)
 		pthread_join(env.philosophers[i++], NULL);
