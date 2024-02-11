@@ -102,7 +102,7 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 	philo = malloc(sizeof(t_philosopher));
 	if (philo == NULL)
 		return (NULL);
-	philo->id = id + 1;
+	philo->id = id;
 	philo->env = env;
 	return (philo);
 }
