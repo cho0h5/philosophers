@@ -26,7 +26,10 @@ void	*philosopher(void *arg)
 	last_eat_time = 0;
 	eat_count = 0;
 	if (philo->id % 2 == 1)
+	{
+		print_thinking(philo->id, philo->env);
 		msleep(philo->env->time_to_eat);
+	}
 	while (philo->env->number_of_must_eat == -1 || eat_count < philo->env->number_of_must_eat)
 	{
 		if (state == THINKING)
