@@ -15,13 +15,11 @@
 void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
-	long long		last_eat_time;
 	long long		eat_count;
 
 	philo = (t_philosopher *)arg;
 	pthread_mutex_lock(&philo->env->mutex_wait);
 	pthread_mutex_unlock(&philo->env->mutex_wait);
-	last_eat_time = 0;
 	eat_count = 0;
 	if (philo->id % 2 == 1)
 	{
@@ -30,7 +28,7 @@ void	*philosopher(void *arg)
 	}
 	while (philo->env->number_of_must_eat == -1 || eat_count < philo->env->number_of_must_eat)
 	{
-		if (get_time_in_ms() - philo->env->start_time - last_eat_time > philo->env->time_to_die)
+		if (get_time_in_ms() - philo->env->start_time - philo->last_eat_time > philo->env->time_to_die)
 		{
 			print_died(philo->id, philo->env);
 			break;
@@ -44,7 +42,7 @@ void	*philosopher(void *arg)
 
 		eat_count++;
 		print_eating(philo->id, philo->env);
-		last_eat_time = get_time_in_ms() - philo->env->start_time;
+		philo->last_eat_time = get_time_in_ms() - philo->env->start_time;
 		msleep(philo->env->time_to_eat);
 		release_fork(get_left_fork(philo));
 		release_fork(get_right_fork(philo));
@@ -102,6 +100,7 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 	if (philo == NULL)
 		return (NULL);
 	philo->id = id;
+	philo->last_eat_time = 0;
 	philo->env = env;
 	return (philo);
 }

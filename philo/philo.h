@@ -46,8 +46,9 @@ typedef struct	s_env
 
 typedef struct	s_philosopher
 {
-	int		id;
-	t_env	*env;
+	int			id;
+	long long	last_eat_time;
+	t_env		*env;
 }	t_philosopher;
 
 typedef enum	e_state
