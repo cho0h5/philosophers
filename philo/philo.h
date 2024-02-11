@@ -39,6 +39,7 @@ typedef struct	s_env
 	int				number_of_must_eat;
 	pthread_t		*philosophers;
 	t_fork			*forks;
+	pthread_mutex_t	mutex_print;
 }	t_env;
 
 
@@ -62,7 +63,13 @@ size_t		ft_strlen(const char *s);
 long long	get_time_in_ms(void);
 void		msleep(unsigned int ms);
 
-int			take_fork(t_fork *fork, long long start_time, int id);
+int			take_fork(t_fork *fork, t_env *env, int id);
 void		release_fork(t_fork *fork);
+
+void		print_fork(int id, t_env *env);
+void		print_eating(int id, t_env *env);
+void		print_sleeping(int id, t_env *env);
+void		print_thinking(int id, t_env *env);
+void		print_died(int id, t_env *env);
 
 #endif

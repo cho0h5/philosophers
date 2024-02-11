@@ -12,14 +12,14 @@
 
 #include "philo.h"
 
-int	take_fork(t_fork *fork, long long start_time, int id)
+int	take_fork(t_fork *fork, t_env *env, int id)
 {
 	pthread_mutex_lock(&fork->mutex);
 	if (fork->is_available == 1)
 	{
 		fork->is_available = 0;
 		fork->owner = id;
-		printf("%lld %d has taken a fork\n", get_time_in_ms() - start_time, id);
+		print_fork(id, env);
 		pthread_mutex_unlock(&fork->mutex);
 		return (1);
 	}

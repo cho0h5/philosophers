@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <unistd.h>
 
 void	*philosopher(void *arg)
 {
@@ -33,18 +31,18 @@ void	*philosopher(void *arg)
 		{
 			if (get_time_in_ms() - philo->env->start_time - last_eat_time > philo->env->time_to_die)
 			{
-				printf("%lld %d dead\n", get_time_in_ms() - philo->env->start_time, philo->id);
+				print_died(philo->id, philo->env);
 				break;
 			}
-			if (take_fork(&philo->env->forks[philo->id], philo->env->start_time, philo->id) &&
-				take_fork(&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers], philo->env->start_time, philo->id) &&
+			if (take_fork(&philo->env->forks[philo->id], philo->env, philo->id) &&
+				take_fork(&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers], philo->env, philo->id) &&
 				&philo->env->forks[philo->id] != &philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers])
 				state = EATING;
 		}
 		else if (state == EATING)
 		{
 			eat_count++;
-			printf("%lld %d is eating\n", get_time_in_ms() - philo->env->start_time, philo->id);
+			print_eating(philo->id, philo->env);
 			last_eat_time = get_time_in_ms() - philo->env->start_time;
 			msleep(philo->env->time_to_eat);
 			release_fork(&philo->env->forks[philo->id]);
@@ -53,9 +51,9 @@ void	*philosopher(void *arg)
 		}
 		else if (state == SLEEPING)
 		{
-			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->env->start_time, philo->id);
+			print_sleeping(philo->id, philo->env);
 			msleep(philo->env->time_to_sleep);
-			printf("%lld %d is thinking\n", get_time_in_ms() - philo->env->start_time, philo->id);
+			print_thinking(philo->id, philo->env);
 			state = THINKING;
 		}
 		usleep(100);
@@ -67,24 +65,16 @@ static int	init(int argc, char **argv, t_env *env)
 {
 	int	i;
 
+	env->number_of_philosophers = parse_int(argv[1]);
+	env->time_to_die = parse_int(argv[2]);
+	env->time_to_eat = parse_int(argv[3]);
+	env->time_to_sleep = parse_int(argv[4]);
 	if (argc == 5)
-	{
-		env->number_of_philosophers = parse_int(argv[1]);
-		env->time_to_die = parse_int(argv[2]);
-		env->time_to_eat = parse_int(argv[3]);
-		env->time_to_sleep = parse_int(argv[4]);
 		env->number_of_must_eat = -1;
-	}
 	else if (argc == 6)
-	{
-		env->number_of_philosophers = parse_int(argv[1]);
-		env->time_to_die = parse_int(argv[2]);
-		env->time_to_eat = parse_int(argv[3]);
-		env->time_to_sleep = parse_int(argv[4]);
 		env->number_of_must_eat = parse_int(argv[5]);
-	}
 	else
-	return (-1);
+		return (-1);
 	env->start_time = get_time_in_ms();
 	env->philosophers = malloc(sizeof(pthread_t) * env->number_of_philosophers);
 	env->forks = malloc(sizeof(t_fork) * env->number_of_philosophers);
@@ -101,6 +91,7 @@ static int	init(int argc, char **argv, t_env *env)
 		env->forks[i].is_available = 1;
 		i++;
 	}
+	pthread_mutex_init(&env->mutex_print, NULL);
 	return (0);
 }
 
