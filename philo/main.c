@@ -132,20 +132,13 @@ int	main(int argc, char **argv)
 		philo_env = create_t_philosopher(&env, i);
 		if (philo_env == NULL)
 			return (1);	// 만들어진 쓰레드 회수해줘야함
-		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
-		i++;
+		pthread_create(&env.philosophers[i++], NULL, philosopher, philo_env);
 	}
 	i = 0;
 	while (i < env.number_of_philosophers)
-	{
-		pthread_join(env.philosophers[i], NULL);
-		i++;
-	}
+		pthread_join(env.philosophers[i++], NULL);
 	i = 0;
 	while (i < env.number_of_philosophers)
-	{
-		pthread_mutex_destroy(&env.forks[i].mutex);
-		i++;
-	}
+		pthread_mutex_destroy(&env.forks[i++].mutex);
 	return (0);
 }
