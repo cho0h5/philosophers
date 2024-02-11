@@ -15,14 +15,12 @@
 void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
-	t_state			state;
 	long long		last_eat_time;
 	long long		eat_count;
 
 	philo = (t_philosopher *)arg;
 	pthread_mutex_lock(&philo->env->mutex_wait);
 	pthread_mutex_unlock(&philo->env->mutex_wait);
-	state = THINKING;
 	last_eat_time = 0;
 	eat_count = 0;
 	if (philo->id % 2 == 1)
@@ -32,35 +30,30 @@ void	*philosopher(void *arg)
 	}
 	while (philo->env->number_of_must_eat == -1 || eat_count < philo->env->number_of_must_eat)
 	{
-		if (state == THINKING)
+		if (get_time_in_ms() - philo->env->start_time - last_eat_time > philo->env->time_to_die)
 		{
-			if (get_time_in_ms() - philo->env->start_time - last_eat_time > philo->env->time_to_die)
-			{
-				print_died(philo->id, philo->env);
-				break;
-			}
-			if (take_fork(get_left_fork(philo), philo->env, philo->id) &&
-				take_fork(get_right_fork(philo), philo->env, philo->id) &&
-				get_left_fork(philo) != get_right_fork(philo))
-				state = EATING;
+			print_died(philo->id, philo->env);
+			break;
 		}
-		else if (state == EATING)
-		{
-			eat_count++;
-			print_eating(philo->id, philo->env);
-			last_eat_time = get_time_in_ms() - philo->env->start_time;
-			msleep(philo->env->time_to_eat);
-			release_fork(&philo->env->forks[philo->id]);
-			release_fork(&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers]);
-			state = SLEEPING;
-		}
-		else if (state == SLEEPING)
-		{
-			print_sleeping(philo->id, philo->env);
-			msleep(philo->env->time_to_sleep);
-			print_thinking(philo->id, philo->env);
-			state = THINKING;
-		}
+
+		while (!take_fork(get_left_fork(philo), philo->env, philo->id))
+			usleep(100);
+		while (!take_fork(get_right_fork(philo), philo->env, philo->id))
+			usleep(100);
+		// get_left_fork(philo) != get_right_fork(philo)
+
+		eat_count++;
+		print_eating(philo->id, philo->env);
+		last_eat_time = get_time_in_ms() - philo->env->start_time;
+		msleep(philo->env->time_to_eat);
+		release_fork(get_left_fork(philo));
+		release_fork(get_right_fork(philo));
+
+		print_sleeping(philo->id, philo->env);
+		msleep(philo->env->time_to_sleep);
+		print_thinking(philo->id, philo->env);
+
+
 		usleep(100);
 	}
 	return (NULL);
@@ -126,7 +119,7 @@ int	main(int argc, char **argv)
 	{
 		philo_env = create_t_philosopher(&env, i);
 		if (philo_env == NULL)
-			return (1);	// 만들어진 쓰레드 회수해줘야함
+		return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i++], NULL, philosopher, philo_env);
 	}
 	env.start_time = get_time_in_ms();
