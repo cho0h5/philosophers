@@ -12,6 +12,16 @@
 
 #include "philo.h"
 
+int	is_die(t_philosopher *philo)
+{
+	if (get_time_in_ms() - philo->env->start_time - philo->last_eat_time > philo->env->time_to_die)
+	{
+		print_died(philo->id, philo->env);
+		return 1;
+	}
+	return 0;
+}
+
 void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
@@ -28,17 +38,12 @@ void	*philosopher(void *arg)
 	}
 	while (philo->env->number_of_must_eat == -1 || eat_count < philo->env->number_of_must_eat)
 	{
-		if (get_time_in_ms() - philo->env->start_time - philo->last_eat_time > philo->env->time_to_die)
-		{
-			print_died(philo->id, philo->env);
-			break;
-		}
 
 		while (!take_fork(get_left_fork(philo), philo->env, philo->id))
 			usleep(100);
 		while (!take_fork(get_right_fork(philo), philo->env, philo->id))
 			usleep(100);
-		// get_left_fork(philo) != get_right_fork(philo)
+		// if (get_left_fork(philo) != get_right_fork(philo))
 
 		eat_count++;
 		print_eating(philo->id, philo->env);
