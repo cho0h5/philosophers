@@ -80,7 +80,6 @@ static int	init(int argc, char **argv, t_env *env)
 		env->number_of_must_eat = parse_int(argv[5]);
 	else
 		return (-1);
-	env->start_time = get_time_in_ms();
 	env->philosophers = malloc(sizeof(pthread_t) * env->number_of_philosophers);
 	env->forks = malloc(sizeof(t_fork) * env->number_of_philosophers);
 	if (env->philosophers == NULL || env->forks == NULL)
@@ -119,11 +118,9 @@ int	main(int argc, char **argv)
 	t_env			env;
 	int				i;
 	t_philosopher	*philo_env;
-	struct timeval	time;
 
 	if (init(argc, argv, &env))
 		return (1);
-	gettimeofday(&time, NULL);
 	i = 0;
 	while (i < env.number_of_philosophers)
 	{
@@ -132,6 +129,7 @@ int	main(int argc, char **argv)
 			return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i++], NULL, philosopher, philo_env);
 	}
+	env.start_time = get_time_in_ms();
 	pthread_mutex_unlock(&env.mutex_wait);
 	i = 0;
 	while (i < env.number_of_philosophers)
