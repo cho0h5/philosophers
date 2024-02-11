@@ -38,3 +38,13 @@ void	release_fork(t_fork *fork)
 	fork->is_available = 1;
 	pthread_mutex_unlock(&fork->mutex);
 }
+
+t_fork	*get_left_fork(t_philosopher *philo)
+{
+	return (&philo->env->forks[philo->id]);
+}
+
+t_fork	*get_right_fork(t_philosopher *philo)
+{
+	return (&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers]);
+}

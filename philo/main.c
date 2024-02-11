@@ -39,9 +39,9 @@ void	*philosopher(void *arg)
 				print_died(philo->id, philo->env);
 				break;
 			}
-			if (take_fork(&philo->env->forks[philo->id], philo->env, philo->id) &&
-				take_fork(&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers], philo->env, philo->id) &&
-				&philo->env->forks[philo->id] != &philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers])
+			if (take_fork(get_left_fork(philo), philo->env, philo->id) &&
+				take_fork(get_right_fork(philo), philo->env, philo->id) &&
+				get_left_fork(philo) != get_right_fork(philo))
 				state = EATING;
 		}
 		else if (state == EATING)

@@ -66,6 +66,8 @@ void		msleep(unsigned int ms);
 
 int			take_fork(t_fork *fork, t_env *env, int id);
 void		release_fork(t_fork *fork);
+t_fork		*get_left_fork(t_philosopher *philo);
+t_fork		*get_right_fork(t_philosopher *philo);
 
 void		print_fork(int id, t_env *env);
 void		print_eating(int id, t_env *env);
