@@ -139,7 +139,6 @@ int	main(int argc, char **argv)
 		if (philo_env == NULL)
 			return (1);	// 만들어진 쓰레드 회수해줘야함
 		pthread_create(&env.philosophers[i], NULL, philosopher, philo_env);
-		// pthread_detach(env.philosophers[i]);
 		i++;
 	}
 	i = 0;
