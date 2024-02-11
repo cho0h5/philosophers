@@ -44,14 +44,8 @@ typedef struct	s_env
 
 typedef struct	s_philosopher
 {
-	long long		start_time;
-	int				id;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				number_of_must_eat;	// 필요한가?
-	t_fork			*left_fork;
-	t_fork			*right_fork;
+	int		id;
+	t_env	*env;
 }	t_philosopher;
 
 typedef enum	e_state

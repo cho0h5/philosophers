@@ -26,36 +26,36 @@ void	*philosopher(void *arg)
 	last_eat_time = 0;
 	eat_count = 0;
 	if (philo->id % 2 == 1)
-		msleep(philo->time_to_eat);
-	while (philo->number_of_must_eat == -1 || eat_count < philo->number_of_must_eat)
+		msleep(philo->env->time_to_eat);
+	while (philo->env->number_of_must_eat == -1 || eat_count < philo->env->number_of_must_eat)
 	{
 		if (state == THINKING)
 		{
-			if (get_time_in_ms() - philo->start_time - last_eat_time > philo->time_to_die)
+			if (get_time_in_ms() - philo->env->start_time - last_eat_time > philo->env->time_to_die)
 			{
-				printf("%lld %d dead\n", get_time_in_ms() - philo->start_time, philo->id);
+				printf("%lld %d dead\n", get_time_in_ms() - philo->env->start_time, philo->id);
 				break;
 			}
-			if (take_fork(philo->left_fork, philo->start_time, philo->id) &&
-				take_fork(philo->right_fork, philo->start_time, philo->id) &&
-				philo->left_fork != philo->right_fork)
+			if (take_fork(&philo->env->forks[philo->id], philo->env->start_time, philo->id) &&
+				take_fork(&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers], philo->env->start_time, philo->id) &&
+				&philo->env->forks[philo->id] != &philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers])
 				state = EATING;
 		}
 		else if (state == EATING)
 		{
 			eat_count++;
-			printf("%lld %d is eating\n", get_time_in_ms() - philo->start_time, philo->id);
-			last_eat_time = get_time_in_ms() - philo->start_time;
-			msleep(philo->time_to_eat);
-			release_fork(philo->right_fork);
-			release_fork(philo->left_fork);
+			printf("%lld %d is eating\n", get_time_in_ms() - philo->env->start_time, philo->id);
+			last_eat_time = get_time_in_ms() - philo->env->start_time;
+			msleep(philo->env->time_to_eat);
+			release_fork(&philo->env->forks[philo->id]);
+			release_fork(&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers]);
 			state = SLEEPING;
 		}
 		else if (state == SLEEPING)
 		{
-			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->start_time, philo->id);
-			msleep(philo->time_to_sleep);
-			printf("%lld %d is thinking\n", get_time_in_ms() - philo->start_time, philo->id);
+			printf("%lld %d is sleeping\n", get_time_in_ms() - philo->env->start_time, philo->id);
+			msleep(philo->env->time_to_sleep);
+			printf("%lld %d is thinking\n", get_time_in_ms() - philo->env->start_time, philo->id);
 			state = THINKING;
 		}
 		usleep(100);
@@ -111,14 +111,8 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 	philo = malloc(sizeof(t_philosopher));
 	if (philo == NULL)
 		return (NULL);
-	philo->start_time = env->start_time;
 	philo->id = id + 1;
-	philo->time_to_die = env->time_to_die;
-	philo->time_to_eat = env->time_to_eat;
-	philo->time_to_sleep = env->time_to_sleep;
-	philo->number_of_must_eat = env->number_of_must_eat;
-	philo->left_fork = &env->forks[id];
-	philo->right_fork = &env->forks[(id + 1) % env->number_of_philosophers];
+	philo->env = env;
 	return (philo);
 }
 
