@@ -26,14 +26,15 @@ typedef struct s_fork
 
 typedef struct s_env
 {
-	long long	start_time;
-	long long	number_of_philosophers;
-	long long	time_to_die;
-	long long	time_to_eat;
-	long long	time_to_sleep;
-	long long	number_of_must_eat;
-	pthread_t	*philosophers;
-	t_fork		*forks;
+	long long		start_time;
+	long long		number_of_philosophers;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	long long		number_of_must_eat;
+	pthread_t		*philosophers;
+	t_fork			*forks;
+	pthread_mutex_t	mutex_ready;
 }	t_env;
 
 typedef struct s_parameter
@@ -51,5 +52,6 @@ int			init_fork(t_fork *fork);
 size_t		ft_strlen(const char *s);
 long long	parse_int(char *str);
 void		panic(char *error_message);
+long long	get_time(void);
 
 #endif

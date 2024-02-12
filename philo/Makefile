@@ -9,7 +9,8 @@ SRCS = 	main.c		\
 		thread.c	\
 		ft_strlen.c	\
 		panic.c		\
-		parse_int.c
+		parse_int.c	\
+		time.c
 
 OBJS = $(SRCS:.c=.o)
 

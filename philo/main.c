@@ -50,6 +50,9 @@ static void	init_env(t_env *env)
 			panic("failed to initialize mutex");
 		i++;
 	}
+	if (pthread_mutex_init(&env->mutex_ready, NULL))
+		panic("failed to initiliaze mutex");
+	pthread_mutex_lock(&env->mutex_ready);
 }
 
 static void	init_parameters(t_env *env, t_parameter **parameters)
@@ -70,14 +73,33 @@ static void	init_parameters(t_env *env, t_parameter **parameters)
 	}
 }
 
-static void	create_philosophers(t_env *env, t_parameter *parameters)
+static void	spawn_philosophers(t_env *env, t_parameter *parameters)
 {
 	int	i;
 
 	i = 0;
 	while (i < env->number_of_philosophers)
 	{
-		pthread_create(&env->philosophers[i], NULL, philosopher, &parameters[i]);
+		if (pthread_create(&env->philosophers[i], NULL, philosopher, &parameters[i]) != 0)
+			panic("failed to create thread");
+		i++;
+	}
+}
+
+static void	start_simulation(t_env *env)
+{
+	env->start_time = get_time();
+	pthread_mutex_unlock(&env->mutex_ready);
+}
+
+static void	join_philosophers(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->number_of_philosophers)
+	{
+		pthread_join(env->philosophers[i], NULL);
 		i++;
 	}
 }
@@ -90,5 +112,7 @@ int main(int argc, char **argv)
 	parse_argument(argc, argv, &env);
 	init_env(&env);
 	init_parameters(&env, &parameters);
-	create_philosophers(&env, parameters);
+	spawn_philosophers(&env, parameters);
+	start_simulation(&env);
+	join_philosophers(&env);
 }
