@@ -16,9 +16,11 @@ void	init_env(t_env *env)
 			panic("failed to initialize mutex");
 		i++;
 	}
-	if (pthread_mutex_init(&env->mutex_ready, NULL))
+	if (pthread_mutex_init(&env->mutex_ready, NULL)
+		|| pthread_mutex_init(&env->mutex_starve, NULL))
 		panic("failed to initiliaze mutex");
 	pthread_mutex_lock(&env->mutex_ready);
+	env->is_someone_starved = 0;
 }
 
 void	free_env(t_env *env)

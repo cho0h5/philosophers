@@ -34,6 +34,8 @@ typedef struct s_env
 	pthread_t		*philosophers;
 	t_fork			*forks;
 	pthread_mutex_t	mutex_ready;
+	pthread_mutex_t	mutex_starve;
+	int				is_someone_starved;
 }	t_env;
 
 typedef struct s_parameter
