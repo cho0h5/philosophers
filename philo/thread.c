@@ -69,7 +69,6 @@ static int	take_forks(t_parameter const *param)
 		}
 	}
 	printf("id%d: has taken left fork (%p)\n", param->id, left_fork(param));
-	usleep(1000);
 	while (try_lock_fork(right_fork(param)))
 	{
 		check_me_starve(param);
