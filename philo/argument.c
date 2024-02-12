@@ -18,4 +18,7 @@ void	parse_argument(int argc, char **argv, t_env *env)
 		|| env->time_to_sleep == NOT_INT
 		|| env->number_of_must_eat == NOT_INT)
 		panic("invalid argument");
+	env->time_to_die *= 1000;
+	env->time_to_eat *= 1000;
+	env->time_to_sleep *= 1000;
 }

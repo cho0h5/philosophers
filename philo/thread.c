@@ -23,7 +23,7 @@ static void	wait_to_start(t_parameter const *param)
 
 static void	check_me_starve(t_parameter const *param)
 {
-	if (get_time() - param->last_eat_time > param->env->time_to_die)
+	if (get_time() - param->env->start_time - param->last_eat_time > param->env->time_to_die)
 	{
 		pthread_mutex_lock(&param->env->mutex_starve);
 		param->env->is_someone_starved = 1;
@@ -64,7 +64,7 @@ static int	take_forks(t_parameter const *param)
 		check_me_starve(param);
 		if (check_someone_starve(param))
 		{
-			// print dead
+			printf("id%d: died\n", param->id);
 			return (-1);
 		}
 	}
@@ -74,7 +74,7 @@ static int	take_forks(t_parameter const *param)
 		check_me_starve(param);
 		if (check_someone_starve(param))
 		{
-			// print dead
+			printf("id%d: died\n", param->id);
 			return (-1);
 		}
 	}
@@ -94,7 +94,8 @@ void	*philosopher(void *arg)
 
 	wait_to_start(param);
 	printf("id%d: %lld\n", param->id, get_time());
-	take_forks(param);
+	if (take_forks(param))
+		return (NULL);
 	release_forks(param);
 	return (NULL);
 }
