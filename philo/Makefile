@@ -37,6 +37,6 @@ re:
 	make all
 
 test: all
-	./philo 50 210 100 100
+	./philo 4 210 100 100
 
 .PHONY: all clean fclean re test
