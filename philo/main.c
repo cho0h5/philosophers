@@ -55,6 +55,14 @@ static void	init_env(t_env *env)
 	pthread_mutex_lock(&env->mutex_ready);
 }
 
+static void	free_env(t_env *env)
+{
+	free(env->philosophers);
+	free(env->forks);
+	env->philosophers = NULL;
+	env->forks = NULL;
+}
+
 static void	init_parameters(t_env *env, t_parameter **parameters)
 {
 	int	i;
@@ -71,6 +79,12 @@ static void	init_parameters(t_env *env, t_parameter **parameters)
 		(*parameters)[i].count_eat = 0;
 		i++;
 	}
+}
+
+static void	free_parameters(t_parameter **parameters)
+{
+	free(*parameters);
+	*parameters = NULL;
 }
 
 static void	spawn_philosophers(t_env *env, t_parameter *parameters)
@@ -115,4 +129,6 @@ int main(int argc, char **argv)
 	spawn_philosophers(&env, parameters);
 	start_simulation(&env);
 	join_philosophers(&env);
+	free_parameters(&parameters);
+	free_env(&env);
 }
