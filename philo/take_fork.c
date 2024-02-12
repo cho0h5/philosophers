@@ -46,5 +46,6 @@ t_fork	*get_left_fork(t_philosopher *philo)
 
 t_fork	*get_right_fork(t_philosopher *philo)
 {
-	return (&philo->env->forks[(philo->id + 1) % philo->env->number_of_philosophers]);
+	return (&philo->env->forks[(philo->id + 1)
+			% philo->env->number_of_philosophers]);
 }

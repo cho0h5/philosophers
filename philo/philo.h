@@ -17,10 +17,9 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 # define NOT_INT 900000000000
-
-#include <stdio.h>
 
 typedef struct s_fork
 {
@@ -29,7 +28,7 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }	t_fork;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	long long		start_time;
 	int				number_of_philosophers;
@@ -43,15 +42,14 @@ typedef struct	s_env
 	pthread_mutex_t	mutex_print;
 }	t_env;
 
-
-typedef struct	s_philosopher
+typedef struct s_philosopher
 {
 	int			id;
 	long long	last_eat_time;
 	t_env		*env;
 }	t_philosopher;
 
-typedef enum	e_state
+typedef enum e_state
 {
 	THINKING,
 	EATING,
