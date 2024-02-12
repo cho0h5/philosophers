@@ -26,26 +26,24 @@ int	is_die(t_philosopher *philo)
 void	*philosopher(void *arg)
 {
 	t_philosopher	*philo;
-	long long		eat_count;
 
 	philo = (t_philosopher *)arg;
 	pthread_mutex_lock(&philo->env->mutex_wait);
 	pthread_mutex_unlock(&philo->env->mutex_wait);
-	eat_count = 0;
 	if (philo->id % 2 == 1)
 	{
 		print_thinking(philo->id, philo->env);
 		msleep(philo->env->time_to_eat);
 	}
 	while (philo->env->number_of_must_eat == -1
-		|| eat_count < philo->env->number_of_must_eat)
+		|| philo->eat_count < philo->env->number_of_must_eat)
 	{
 		while (!take_fork(get_left_fork(philo), philo->env, philo->id))
 			usleep(100);
 		while (!take_fork(get_right_fork(philo), philo->env, philo->id))
 			usleep(100);
 		// if (get_left_fork(philo) != get_right_fork(philo))
-		eat_count++;
+		philo->eat_count++;
 		print_eating(philo->id, philo->env);
 		philo->last_eat_time = get_time_in_ms() - philo->env->start_time;
 		msleep(philo->env->time_to_eat);
@@ -103,6 +101,7 @@ static t_philosopher	*create_t_philosopher(t_env *env, int id)
 		return (NULL);
 	philo->id = id;
 	philo->last_eat_time = 0;
+	philo->eat_count = 0;
 	philo->env = env;
 	return (philo);
 }

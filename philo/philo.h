@@ -46,6 +46,7 @@ typedef struct s_philosopher
 {
 	int			id;
 	long long	last_eat_time;
+	long long	eat_count;
 	t_env		*env;
 }	t_philosopher;
 
