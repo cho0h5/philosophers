@@ -20,7 +20,6 @@
 typedef struct s_fork
 {
 	pthread_mutex_t	mutex;
-	int				owner;
 	int				is_available;
 }	t_fork;
 
@@ -60,6 +59,8 @@ void		join_philosophers(t_env *env);
 void		*philosopher(void *arg);
 
 int			init_fork(t_fork *fork);
+int			try_lock_fork(t_fork *fork);
+void		unlock_fork(t_fork *fork);
 
 size_t		ft_strlen(const char *s);
 long long	parse_int(char *str);
