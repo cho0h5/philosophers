@@ -12,51 +12,6 @@
 
 #include "philo.h"
 
-int	is_die(t_philosopher *philo)
-{
-	if (get_time_in_ms() - philo->env->start_time - philo->last_eat_time
-		> philo->env->time_to_die)
-	{
-		print_died(philo->id, philo->env);
-		return (1);
-	}
-	return (0);
-}
-
-void	*philosopher(void *arg)
-{
-	t_philosopher	*philo;
-
-	philo = (t_philosopher *)arg;
-	pthread_mutex_lock(&philo->env->mutex_wait);
-	pthread_mutex_unlock(&philo->env->mutex_wait);
-	if (philo->id % 2 == 1)
-	{
-		print_thinking(philo->id, philo->env);
-		msleep(philo->env->time_to_eat);
-	}
-	while (philo->env->number_of_must_eat == -1
-		|| philo->eat_count < philo->env->number_of_must_eat)
-	{
-		while (!take_fork(get_left_fork(philo), philo->env, philo->id))
-			usleep(100);
-		while (!take_fork(get_right_fork(philo), philo->env, philo->id))
-			usleep(100);
-		// if (get_left_fork(philo) != get_right_fork(philo))
-		philo->eat_count++;
-		print_eating(philo->id, philo->env);
-		philo->last_eat_time = get_time_in_ms() - philo->env->start_time;
-		msleep(philo->env->time_to_eat);
-		release_fork(get_left_fork(philo));
-		release_fork(get_right_fork(philo));
-		print_sleeping(philo->id, philo->env);
-		msleep(philo->env->time_to_sleep);
-		print_thinking(philo->id, philo->env);
-		usleep(100);
-	}
-	return (NULL);
-}
-
 static int	init(int argc, char **argv, t_env *env)
 {
 	int	i;

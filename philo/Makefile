@@ -1,7 +1,17 @@
 NAME = philo
+
 CC = cc
+
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-SRCS = main.c parse_int.c ft_strlen.c time.c take_fork.c print.c
+
+SRCS = 	main.c			\
+		parse_int.c		\
+		ft_strlen.c		\
+		time.c			\
+		take_fork.c		\
+		print.c			\
+		philosopher.c	\
+
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -25,4 +35,4 @@ re:
 test: all
 	./philo 50 210 100 100
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test

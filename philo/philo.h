@@ -75,4 +75,6 @@ void		print_sleeping(int id, t_env *env);
 void		print_thinking(int id, t_env *env);
 void		print_died(int id, t_env *env);
 
+void		*philosopher(void *arg);
+
 #endif
