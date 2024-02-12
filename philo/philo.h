@@ -40,6 +40,8 @@ typedef struct s_env
 	t_fork			*forks;
 	pthread_mutex_t	mutex_wait;
 	pthread_mutex_t	mutex_print;
+	int				mutex_is_die;
+	pthread_mutex_t	mutex_die;
 }	t_env;
 
 typedef struct s_philosopher

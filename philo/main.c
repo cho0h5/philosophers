@@ -44,6 +44,7 @@ static int	init(int argc, char **argv, t_env *env)
 	pthread_mutex_init(&env->mutex_wait, NULL);
 	pthread_mutex_init(&env->mutex_print, NULL);
 	pthread_mutex_lock(&env->mutex_wait);
+	pthread_mutex_lock(&env->mutex_die);
 	return (0);
 }
 
