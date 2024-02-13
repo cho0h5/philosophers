@@ -22,7 +22,7 @@ int	print_fork(t_parameter *param)
 			return (-1);
 	}
 	printf("%lld %d has taken a fork\n",
-		get_time() - param->env->start_time, param->id + 1);
+		(get_time() - param->env->start_time) / 1000, param->id + 1);
 	unlock_fork(&param->env->fork_print);
 	return (0);
 }
@@ -36,7 +36,7 @@ int	print_eating(t_parameter *param)
 			return (-1);
 	}
 	printf("%lld %d is eating\n",
-		get_time() - param->env->start_time, param->id + 1);
+		(get_time() - param->env->start_time) / 1000, param->id + 1);
 	unlock_fork(&param->env->fork_print);
 	return (0);
 }
@@ -50,7 +50,7 @@ int	print_sleeping(t_parameter *param)
 			return (-1);
 	}
 	printf("%lld %d is sleeping\n",
-		get_time() - param->env->start_time, param->id + 1);
+		(get_time() - param->env->start_time) / 1000, param->id + 1);
 	unlock_fork(&param->env->fork_print);
 	return (0);
 }
@@ -64,7 +64,7 @@ int	print_thinking(t_parameter *param)
 			return (-1);
 	}
 	printf("%lld %d is thinking\n",
-		get_time() - param->env->start_time, param->id + 1);
+		(get_time() - param->env->start_time) / 1000, param->id + 1);
 	unlock_fork(&param->env->fork_print);
 	return (0);
 }
@@ -78,6 +78,6 @@ int	print_died(t_parameter *param)
 			return (-1);
 	}
 	printf("%lld %d died\n",
-		get_time() - param->env->start_time, param->id + 1);
+		(get_time() - param->env->start_time) / 1000, param->id + 1);
 	return (0);
 }
