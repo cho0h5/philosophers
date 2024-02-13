@@ -42,6 +42,7 @@ static int	take_forks(t_parameter *const param)
 		check_me_starve(param);
 		if (check_someone_starve(param))
 			return (-1);
+		usleep(100);
 	}
 	print_fork(param);
 	while (try_lock_fork(right_fork(param)))
@@ -49,6 +50,7 @@ static int	take_forks(t_parameter *const param)
 		check_me_starve(param);
 		if (check_someone_starve(param))
 			return (-1);
+		usleep(100);
 	}
 	print_fork(param);
 	return (0);
@@ -69,7 +71,7 @@ static int	philosopher_eat(t_parameter *const param)
 		check_me_starve(param);
 		if (check_someone_starve(param))
 			return (-1);
-		// usleep(100);
+		usleep(100);
 	}
 	param->last_eat_time = get_time();
 	return (0);
@@ -84,7 +86,7 @@ static int	philosopher_sleep(t_parameter *const param)
 		check_me_starve(param);
 		if (check_someone_starve(param))
 			return (-1);
-		// usleep(100);
+		usleep(100);
 	}
 	return (0);
 }
