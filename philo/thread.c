@@ -120,8 +120,11 @@ void	*philosopher(void *arg)
 	t_parameter *const	param = arg;
 
 	wait_to_start(param);
-	printf("%lld\t%d\tcreated\n",
+	printf("%lld\t%d\ts thinking\n",
 		(get_time() - param->env->start_time) / 1000, param->id);
+	if (param->id % 2 == 0)
+		if (philosopher_eat(param))
+			return (NULL);
 	while (1)
 	{
 		if (take_forks(param))
@@ -135,6 +138,8 @@ void	*philosopher(void *arg)
 			(get_time() - param->env->start_time) / 1000, param->id);
 		if (philosopher_sleep(param))
 			return (NULL);
+		printf("%lld\t%d\ts thinking\n",
+			(get_time() - param->env->start_time) / 1000, param->id);
 	}
 	return (NULL);
 }
