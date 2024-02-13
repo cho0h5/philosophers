@@ -94,6 +94,7 @@ void	*philosopher(void *arg)
 	t_parameter *const	param = arg;
 
 	wait_to_start(param);
+	param->last_eat_time = param->env->start_time;
 	print_thinking(param);
 	if (param->id % 2 == 0)
 		if (philosopher_eat(param))

@@ -14,12 +14,15 @@
 
 void	check_me_starve(t_parameter *const param)
 {
-	if (get_time() - param->env->start_time - param->last_eat_time > param->env->time_to_die)
+	if (get_time() - param->last_eat_time > param->env->time_to_die)
 	{
 		pthread_mutex_lock(&param->env->mutex_starve);
-		param->env->is_someone_starved = 1;
+		if (param->env->is_someone_starved == 0)
+		{
+			param->env->is_someone_starved = 1;
+			print_died(param);
+		}
 		pthread_mutex_unlock(&param->env->mutex_starve);
-		print_died(param);
 	}
 }
 
