@@ -60,6 +60,8 @@ void		start_simulation(t_env *env);
 void		join_philosophers(t_env *env);
 
 void		*philosopher(void *arg);
+int			philosopher_eat(t_parameter *const param);
+int			philosopher_sleep(t_parameter *const param);
 void		check_me_starve(t_parameter *const param);
 int			check_someone_starve(t_parameter *const param);
 
@@ -72,6 +74,8 @@ int			print_died(t_parameter *param);
 int			init_fork(t_fork *fork);
 int			try_lock_fork(t_fork *fork);
 void		unlock_fork(t_fork *fork);
+int			take_forks(t_parameter *const param);
+void		release_forks(t_parameter *const param);
 
 size_t		ft_strlen(const char *s);
 long long	parse_int(char *str);

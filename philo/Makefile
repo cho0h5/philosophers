@@ -6,13 +6,15 @@ CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRCS = 	main.c				\
 		fork.c				\
-		thread.c			\
 		ft_strlen.c			\
 		panic.c				\
 		parse_int.c			\
 		env.c				\
 		parameters.c		\
 		philosopher.c		\
+		philosopher_fork.c	\
+		philosopher_eat.c	\
+		philosopher_sleep.c	\
 		philosopher_die.c	\
 		argument.c			\
 		print.c				\
