@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/13 15:56:14 by younghoc          #+#    #+#             */
+/*   Updated: 2024/02/13 15:56:15 by younghoc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	spawn_philosophers(t_env *env, t_parameter *parameters)
@@ -7,7 +19,8 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 	i = 0;
 	while (i < env->number_of_philosophers)
 	{
-		if (pthread_create(&env->philosophers[i], NULL, philosopher, &parameters[i]) != 0)
+		if (pthread_create(&env->philosophers[i], NULL,
+				philosopher, &parameters[i]) != 0)
 			panic("failed to create thread");
 		i++;
 	}

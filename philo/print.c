@@ -79,6 +79,5 @@ int	print_died(t_parameter *param)
 	}
 	printf("%lld %d died\n",
 		get_time() - param->env->start_time, param->id + 1);
-	// unlock_fork(&param->env->fork_print);
 	return (0);
 }

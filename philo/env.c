@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/13 15:55:46 by younghoc          #+#    #+#             */
+/*   Updated: 2024/02/13 15:55:47 by younghoc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <stdlib.h>
 
@@ -12,7 +24,7 @@ void	init_env(t_env *env)
 	i = 0;
 	while (i < env->number_of_philosophers)
 	{
-		if (init_fork(&env->forks[i])!= 0)
+		if (init_fork(&env->forks[i]) != 0)
 			panic("failed to initialize mutex");
 		i++;
 	}
@@ -21,7 +33,7 @@ void	init_env(t_env *env)
 		panic("failed to initiliaze mutex");
 	pthread_mutex_lock(&env->mutex_ready);
 	env->is_someone_starved = 0;
-	if (init_fork(&env->fork_print)!= 0)
+	if (init_fork(&env->fork_print) != 0)
 		panic("failed to initialize mutex");
 }
 

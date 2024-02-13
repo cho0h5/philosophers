@@ -13,7 +13,7 @@
 #include "philo.h"
 #include <pthread.h>
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_env		env;
 	t_parameter	*parameters;
