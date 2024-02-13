@@ -21,30 +21,6 @@ static void	wait_to_start(t_parameter *const param)
 	pthread_mutex_unlock(&param->env->mutex_ready);
 }
 
-static void	check_me_starve(t_parameter *const param)
-{
-	if (get_time() - param->env->start_time - param->last_eat_time > param->env->time_to_die)
-	{
-		pthread_mutex_lock(&param->env->mutex_starve);
-		param->env->is_someone_starved = 1;
-		pthread_mutex_unlock(&param->env->mutex_starve);
-		printf("%lld\t%d\tdied\n",
-			(get_time() - param->env->start_time) / 1000, param->id);
-	}
-}
-
-static int	check_someone_starve(t_parameter *const param)
-{
-	pthread_mutex_lock(&param->env->mutex_starve);
-	if (param->env->is_someone_starved)
-	{
-		pthread_mutex_unlock(&param->env->mutex_starve);
-		return (1);
-	}
-	pthread_mutex_unlock(&param->env->mutex_starve);
-	return (0);
-}
-
 static t_fork	*left_fork(t_parameter *const param)
 {
 	const int	id_fork = param->id;
@@ -67,16 +43,14 @@ static int	take_forks(t_parameter *const param)
 		if (check_someone_starve(param))
 			return (-1);
 	}
-	printf("%lld\t%d\thas taken a left fork\n",
-		(get_time() - param->env->start_time) / 1000, param->id);
+	print_fork(param);
 	while (try_lock_fork(right_fork(param)))
 	{
 		check_me_starve(param);
 		if (check_someone_starve(param))
 			return (-1);
 	}
-	printf("%lld\t%d\thas taken a right fork\n",
-		(get_time() - param->env->start_time) / 1000, param->id);
+	print_fork(param);
 	return (0);
 }
 
@@ -120,8 +94,7 @@ void	*philosopher(void *arg)
 	t_parameter *const	param = arg;
 
 	wait_to_start(param);
-	printf("%lld\t%d\ts thinking\n",
-		(get_time() - param->env->start_time) / 1000, param->id);
+	print_thinking(param);
 	if (param->id % 2 == 0)
 		if (philosopher_eat(param))
 			return (NULL);
@@ -129,17 +102,14 @@ void	*philosopher(void *arg)
 	{
 		if (take_forks(param))
 			return (NULL);
-		printf("%lld\t%d\tis eating\n",
-			(get_time() - param->env->start_time) / 1000, param->id);
+		print_eating(param);
 		if (philosopher_eat(param))
 			return (NULL);
 		release_forks(param);
-		printf("%lld\t%d\tis sleeping\n",
-			(get_time() - param->env->start_time) / 1000, param->id);
+		print_sleeping(param);
 		if (philosopher_sleep(param))
 			return (NULL);
-		printf("%lld\t%d\ts thinking\n",
-			(get_time() - param->env->start_time) / 1000, param->id);
+		print_thinking(param);
 	}
 	return (NULL);
 }

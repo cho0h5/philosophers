@@ -21,6 +21,8 @@ void	init_env(t_env *env)
 		panic("failed to initiliaze mutex");
 	pthread_mutex_lock(&env->mutex_ready);
 	env->is_someone_starved = 0;
+	if (init_fork(&env->fork_print)!= 0)
+		panic("failed to initialize mutex");
 }
 
 void	free_env(t_env *env)

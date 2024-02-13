@@ -4,16 +4,18 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-SRCS = 	main.c			\
-		fork.c			\
-		thread.c		\
-		ft_strlen.c		\
-		panic.c			\
-		parse_int.c		\
-		env.c			\
-		parameters.c	\
-		philosopher.c	\
-		argument.c		\
+SRCS = 	main.c				\
+		fork.c				\
+		thread.c			\
+		ft_strlen.c			\
+		panic.c				\
+		parse_int.c			\
+		env.c				\
+		parameters.c		\
+		philosopher.c		\
+		philosopher_die.c	\
+		argument.c			\
+		print.c				\
 		time.c
 
 OBJS = $(SRCS:.c=.o)

@@ -36,6 +36,7 @@ typedef struct s_env
 	pthread_mutex_t	mutex_ready;
 	pthread_mutex_t	mutex_starve;
 	int				is_someone_starved;
+	t_fork			fork_print;
 }	t_env;
 
 typedef struct s_parameter
@@ -59,6 +60,14 @@ void		start_simulation(t_env *env);
 void		join_philosophers(t_env *env);
 
 void		*philosopher(void *arg);
+void		check_me_starve(t_parameter *const param);
+int			check_someone_starve(t_parameter *const param);
+
+int			print_fork(t_parameter *param);
+int			print_eating(t_parameter *param);
+int			print_sleeping(t_parameter *param);
+int			print_thinking(t_parameter *param);
+int			print_died(t_parameter *param);
 
 int			init_fork(t_fork *fork);
 int			try_lock_fork(t_fork *fork);
