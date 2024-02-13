@@ -86,7 +86,7 @@ static void	release_forks(t_parameter *const param)
 	unlock_fork(right_fork(param));
 }
 
-static int	eat(t_parameter *const param)
+static int	philosopher_eat(t_parameter *const param)
 {
 	const long long	start_time_eat = get_time();
 
@@ -101,6 +101,20 @@ static int	eat(t_parameter *const param)
 	return (0);
 }
 
+static int	philosopher_sleep(t_parameter *const param)
+{
+	const long long	start_time_sleep = get_time();
+
+	while (get_time() - start_time_sleep < param->env->time_to_sleep)
+	{
+		 check_me_starve(param);
+		if (check_someone_starve(param))
+			return (-1);
+		// usleep(100);
+	}
+	return (0);
+}
+
 void	*philosopher(void *arg)
 {
 	t_parameter *const	param = arg;
@@ -108,12 +122,19 @@ void	*philosopher(void *arg)
 	wait_to_start(param);
 	printf("%lld\t%d\tcreated\n",
 		(get_time() - param->env->start_time) / 1000, param->id);
-	if (take_forks(param))
-		return (NULL);
-	printf("%lld\t%d\tis eating\n",
-		(get_time() - param->env->start_time) / 1000, param->id);
-	if (eat(param))
-		return (NULL);
-	release_forks(param);
+	while (1)
+	{
+		if (take_forks(param))
+			return (NULL);
+		printf("%lld\t%d\tis eating\n",
+			(get_time() - param->env->start_time) / 1000, param->id);
+		if (philosopher_eat(param))
+			return (NULL);
+		release_forks(param);
+		printf("%lld\t%d\tis sleeping\n",
+			(get_time() - param->env->start_time) / 1000, param->id);
+		if (philosopher_sleep(param))
+			return (NULL);
+	}
 	return (NULL);
 }
