@@ -14,6 +14,8 @@
 
 void	parse_argument(int argc, char **argv, t_env *env)
 {
+	if (argc != 5 && argc != 6)
+		panic("invalid argument");
 	env->number_of_philosophers = parse_int(argv[1]);
 	env->time_to_die = parse_int(argv[2]);
 	env->time_to_eat = parse_int(argv[3]);
