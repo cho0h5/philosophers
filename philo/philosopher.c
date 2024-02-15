@@ -55,6 +55,8 @@ void	*philosopher(void *arg)
 	t_parameter *const	param = arg;
 
 	wait_to_start(param);
+	if (check_eat_done(param))
+		return (NULL);
 	param->last_eat_time = param->env->start_time;
 	print_thinking(param);
 	if (param->id % 2 == 0)
@@ -68,6 +70,8 @@ void	*philosopher(void *arg)
 		if (philosopher_eat(param))
 			return (NULL);
 		release_forks(param);
+		if (check_eat_done(param))
+			return (NULL);
 		print_sleeping(param);
 		if (philosopher_sleep(param))
 			return (NULL);

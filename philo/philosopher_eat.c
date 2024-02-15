@@ -13,6 +13,12 @@
 #include "philo.h"
 #include <unistd.h>
 
+int	check_eat_done(t_parameter *const param)
+{
+	return ((param->env->number_of_must_eat != -1
+			&& param->count_eat >= param->env->number_of_must_eat));
+}
+
 int	philosopher_eat(t_parameter *const param)
 {
 	const long long	start_time_eat = get_time();
@@ -25,5 +31,6 @@ int	philosopher_eat(t_parameter *const param)
 			return (-1);
 		usleep(100);
 	}
+	param->count_eat += 1;
 	return (0);
 }

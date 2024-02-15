@@ -62,6 +62,7 @@ void		join_philosophers(t_env *env);
 void		*philosopher(void *arg);
 int			philosopher_eat(t_parameter *const param);
 int			philosopher_sleep(t_parameter *const param);
+int			check_eat_done(t_parameter *const param);
 void		check_me_starve(t_parameter *const param);
 int			check_someone_starve(t_parameter *const param);
 
