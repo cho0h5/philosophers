@@ -77,12 +77,7 @@ int	print_thinking(t_parameter *param)
 int	print_died(t_parameter *param)
 {
 	while (try_lock_fork(&param->env->fork_print))
-	{
-		check_me_starve(param);
-		if (check_someone_starve(param))
-			return (-1);
 		usleep(100);
-	}
 	printf("%lld %d died\n",
 		(get_time() - param->env->start_time) / 1000, param->id + 1);
 	return (0);
