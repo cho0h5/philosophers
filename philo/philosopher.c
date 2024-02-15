@@ -60,9 +60,8 @@ void	*philosopher(void *arg)
 	param->last_eat_time = param->env->start_time;
 	if (print_thinking(param))
 		return (NULL);
-	if (param->id % 2 == 0)
-		if (philosopher_eat(param))
-			return (NULL);
+	if (param->id % 2 == 0 && philosopher_sleep(param))
+		return (NULL);
 	while (1)
 	{
 		if (take_forks(param))
