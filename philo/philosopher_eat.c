@@ -17,6 +17,7 @@ int	philosopher_eat(t_parameter *const param)
 {
 	const long long	start_time_eat = get_time();
 
+	param->last_eat_time = get_time();
 	while (get_time() - start_time_eat < param->env->time_to_eat)
 	{
 		check_me_starve(param);
@@ -24,6 +25,5 @@ int	philosopher_eat(t_parameter *const param)
 			return (-1);
 		usleep(100);
 	}
-	param->last_eat_time = get_time();
 	return (0);
 }
