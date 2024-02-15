@@ -96,7 +96,7 @@ long long	parse_int(char *str)
 		return (NOT_INT);
 	if (num < 1 << (8 * sizeof(int) - 1))
 		return (NOT_INT);
-	if (num < 0)
+	if (num <= 0)
 		return (NOT_INT);
 	return (num);
 }
