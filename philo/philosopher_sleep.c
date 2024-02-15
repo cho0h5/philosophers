@@ -17,6 +17,7 @@ int	philosopher_sleep(t_parameter *const param)
 {
 	const long long	start_time_sleep = get_time();
 
+	usleep(0.9 * param->env->time_to_sleep);
 	while (get_time() - start_time_sleep < param->env->time_to_sleep)
 	{
 		check_me_starve(param);
