@@ -31,6 +31,5 @@ int	philosopher_eat(t_parameter *const param)
 			return (-1);
 		usleep(100);
 	}
-	param->count_eat += 1;
 	return (0);
 }

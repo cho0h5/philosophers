@@ -58,7 +58,8 @@ void	*philosopher(void *arg)
 	if (check_eat_done(param))
 		return (NULL);
 	param->last_eat_time = param->env->start_time;
-	print_thinking(param);
+	if (print_thinking(param))
+		return (NULL);
 	if (param->id % 2 == 0)
 		if (philosopher_eat(param))
 			return (NULL);
@@ -66,16 +67,15 @@ void	*philosopher(void *arg)
 	{
 		if (take_forks(param))
 			return (NULL);
-		print_eating(param);
-		if (philosopher_eat(param))
+		if (print_eating(param) || philosopher_eat(param))
 			return (NULL);
 		release_forks(param);
+		param->count_eat += 1;
 		if (check_eat_done(param))
 			return (NULL);
-		print_sleeping(param);
-		if (philosopher_sleep(param))
+		if (print_sleeping(param) || philosopher_sleep(param)
+			|| print_thinking(param))
 			return (NULL);
-		print_thinking(param);
 	}
 	return (NULL);
 }
