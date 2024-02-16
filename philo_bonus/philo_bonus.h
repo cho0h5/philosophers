@@ -64,7 +64,7 @@ int			print_sleeping(t_parameter *param);
 int			print_thinking(t_parameter *param);
 int			print_died(t_parameter *param);
 
-int			take_forks(t_parameter *const param);
+void		take_forks(t_parameter *const param);
 void		release_forks(t_parameter *const param);
 
 size_t		ft_strlen(const char *s);

@@ -74,8 +74,7 @@ void	philosopher(t_parameter *const param)
 		return ;
 	while (1)
 	{
-		if (take_forks(param))
-			return ;
+		take_forks(param);
 		if (print_eating(param) || philosopher_eat(param))
 			return ;
 		release_forks(param);
