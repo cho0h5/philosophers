@@ -1,0 +1,46 @@
+NAME = philo_bonus
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror
+
+SRCS = 	main_bonus.c		\
+		argument_bonus.c	\
+		parse_int_bonus.c	\
+		ft_strlen_bonus.c	\
+		env_bonus.c			\
+#		fork.c				\
+#		panic.c				\
+#		parameters.c		\
+#		philosopher.c		\
+#		philosopher_fork.c	\
+#		philosopher_eat.c	\
+#		philosopher_sleep.c	\
+#		philosopher_die.c	\
+#		print.c				\
+#		time.c
+
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJS)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re:
+	make fclean
+	make all
+
+test: 
+	./philo_bonus 2 210 100 100
+
+.PHONY: all clean fclean re test
