@@ -4,20 +4,20 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-SRCS = 	main_bonus.c		\
-		argument_bonus.c	\
-		parse_int_bonus.c	\
-		ft_strlen_bonus.c	\
-		env_bonus.c			\
-		panic_bonus.c		\
-		parameters_bonus.c	\
-		philosopher_bonus.c	\
-		print_bonus.c		\
-		time_bonus.c		\
+SRCS = 	main_bonus.c				\
+		argument_bonus.c			\
+		parse_int_bonus.c			\
+		ft_strlen_bonus.c			\
+		env_bonus.c					\
+		panic_bonus.c				\
+		parameters_bonus.c			\
+		philosopher_bonus.c			\
+		philosopher_fork_bonus.c	\
+		philosopher_eat_bonus.c		\
+		philosopher_sleep_bonus.c	\
+		print_bonus.c				\
+		time_bonus.c				\
 #		fork.c				\
-#		philosopher_fork.c	\
-#		philosopher_eat.c	\
-#		philosopher_sleep.c	\
 #		philosopher_die.c	\
 
 OBJS = $(SRCS:.c=.o)
