@@ -64,9 +64,6 @@ int			print_sleeping(t_parameter *param);
 int			print_thinking(t_parameter *param);
 int			print_died(t_parameter *param);
 
-int			init_fork(sem_t *sem_forks);
-int			try_lock_fork(sem_t *sem_forks);
-void		unlock_fork(sem_t *sem_forks);
 int			take_forks(t_parameter *const param);
 void		release_forks(t_parameter *const param);
 
