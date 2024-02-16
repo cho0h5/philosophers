@@ -2,15 +2,15 @@ NAME = philo_bonus
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRCS = 	main_bonus.c		\
 		argument_bonus.c	\
 		parse_int_bonus.c	\
 		ft_strlen_bonus.c	\
 		env_bonus.c			\
+		panic_bonus.c				\
 #		fork.c				\
-#		panic.c				\
 #		parameters.c		\
 #		philosopher.c		\
 #		philosopher_fork.c	\
