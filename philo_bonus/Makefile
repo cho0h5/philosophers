@@ -11,8 +11,8 @@ SRCS = 	main_bonus.c		\
 		env_bonus.c			\
 		panic_bonus.c		\
 		parameters_bonus.c	\
+		philosopher_bonus.c	\
 #		fork.c				\
-#		philosopher.c		\
 #		philosopher_fork.c	\
 #		philosopher_eat.c	\
 #		philosopher_sleep.c	\

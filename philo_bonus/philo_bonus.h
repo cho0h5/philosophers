@@ -51,7 +51,7 @@ void		spawn_philosophers(t_env *env, t_parameter *parameters);
 void		start_simulation(t_env *env);
 void		join_philosophers(t_env *env);
 
-void		*philosopher(void *arg);
+void		philosopher(t_parameter *const param);
 int			philosopher_eat(t_parameter *const param);
 int			philosopher_sleep(t_parameter *const param);
 int			check_eat_done(t_parameter *const param);
