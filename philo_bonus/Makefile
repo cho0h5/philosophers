@@ -17,7 +17,6 @@ SRCS = 	main_bonus.c				\
 		philosopher_sleep_bonus.c	\
 		print_bonus.c				\
 		time_bonus.c				\
-#		fork.c				\
 #		philosopher_die.c	\
 
 OBJS = $(SRCS:.c=.o)
