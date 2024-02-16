@@ -19,12 +19,11 @@ int	main(int argc, char **argv)
 	t_parameter	*parameters;
 
 	parse_argument(argc, argv, &env);
-	(void)parameters;
 	init_env(&env);
-//	init_parameters(&env, &parameters);
+	init_parameters(&env, &parameters);
 //	spawn_philosophers(&env, parameters);
 //	start_simulation(&env);
 //	join_philosophers(&env);
-//	free_parameters(&parameters);
-//	free_env(&env);
+	free_parameters(&parameters);
+	free_env(&env);
 }

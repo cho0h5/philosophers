@@ -9,9 +9,9 @@ SRCS = 	main_bonus.c		\
 		parse_int_bonus.c	\
 		ft_strlen_bonus.c	\
 		env_bonus.c			\
-		panic_bonus.c				\
+		panic_bonus.c		\
+		parameters_bonus.c	\
 #		fork.c				\
-#		parameters.c		\
 #		philosopher.c		\
 #		philosopher_fork.c	\
 #		philosopher_eat.c	\
