@@ -12,7 +12,7 @@
 
 #include "philo_bonus.h"
 
-void parse_argument(int argc, char **argv, t_env *env)
+void	parse_argument(int argc, char **argv, t_env *env)
 {
 	if (argc != 5 && argc != 6)
 		panic("invalid argument");
@@ -27,10 +27,10 @@ void parse_argument(int argc, char **argv, t_env *env)
 	else
 		panic("invalid argument");
 	if (env->number_of_philosophers == NOT_INT
-			|| env->time_to_die == NOT_INT
-			|| env->time_to_eat == NOT_INT
-			|| env->time_to_sleep == NOT_INT
-			|| env->number_of_must_eat == NOT_INT)
+		|| env->time_to_die == NOT_INT
+		|| env->time_to_eat == NOT_INT
+		|| env->time_to_sleep == NOT_INT
+		|| env->number_of_must_eat == NOT_INT)
 		panic("invalid argument");
 	env->time_to_die *= 1000;
 	env->time_to_eat *= 1000;

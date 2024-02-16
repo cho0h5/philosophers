@@ -36,4 +36,3 @@ void	free_parameters(t_parameter **parameters)
 	free(*parameters);
 	*parameters = NULL;
 }
-

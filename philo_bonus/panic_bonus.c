@@ -14,9 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void panic(char *error_message)
+void	panic(char *error_message)
 {
 	printf("%s\n", error_message);
 	exit(1);
 }
-
