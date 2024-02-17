@@ -27,6 +27,7 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 	int	ret;
 
 	i = 0;
+	env->start_time = get_time();
 	while (i < env->number_of_philosophers)
 	{
 		ret = fork();
@@ -46,7 +47,6 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 
 void	start_simulation(t_env *env)
 {
-	env->start_time = get_time();
 	sem_post(env->sem_ready);
 }
 
