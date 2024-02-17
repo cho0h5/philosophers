@@ -12,6 +12,7 @@
 
 #include "philo_bonus.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 int	philosopher_sleep(t_parameter *const param)
 {
@@ -19,9 +20,8 @@ int	philosopher_sleep(t_parameter *const param)
 
 	while (get_time() - start_time_sleep < param->env->time_to_sleep)
 	{
-		check_me_starve(param);
-		if (check_someone_starve(param))
-			return (-1);
+		if (check_me_starve(param))
+			exit(0);
 		usleep(100);
 	}
 	return (0);
