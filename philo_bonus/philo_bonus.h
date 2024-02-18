@@ -56,6 +56,7 @@ int			philosopher_eat(t_parameter *const param);
 int			philosopher_sleep(t_parameter *const param);
 int			check_eat_done(t_parameter *const param);
 int			check_me_starve(t_parameter *const param);
+void		create_die_checker(t_parameter *const param);
 
 int			print_fork(t_parameter *param);
 int			print_eating(t_parameter *param);

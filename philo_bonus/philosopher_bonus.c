@@ -23,9 +23,8 @@ static void	wait_to_start(t_parameter *const param)
 void	philosopher(t_parameter *const param)
 {
 	wait_to_start(param);
-	if (check_eat_done(param))
-		return ;
 	param->last_eat_time = param->env->start_time;
+	create_die_checker(param);
 	if (print_thinking(param))
 		return ;
 	if (param->id % 2 == 0 && philosopher_sleep(param))
