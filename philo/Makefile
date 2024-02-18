@@ -16,6 +16,8 @@ SRCS = 	main.c				\
 		philosopher_eat.c	\
 		philosopher_sleep.c	\
 		philosopher_die.c	\
+		philosopher_spawn.c	\
+		philosopher_join.c	\
 		argument.c			\
 		print.c				\
 		time.c
