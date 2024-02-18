@@ -40,6 +40,6 @@ re:
 	make all
 
 test: all
-	./philo_bonus 100 210 100 100
+	./philo_bonus 10 210 100 100
 
 .PHONY: all clean fclean re test

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -24,6 +25,7 @@ static void	wait_to_start(t_parameter *const param)
 void	spawn_philosophers(t_env *env, t_parameter *parameters)
 {
 	int			i;
+	int			j;
 	int			ret;
 	const int	delay = env->number_of_philosophers * 30 * 1000;
 
@@ -40,7 +42,13 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 		}
 		else if (ret == -1)
 		{
-			// todo: wait children already created
+			kill(0, SIGKILL);
+			j = 0;
+			while (j < i)
+			{
+				waitpid(0, NULL, 0);
+				j++;
+			}
 			panic("failed to fork");
 		}
 		i++;
