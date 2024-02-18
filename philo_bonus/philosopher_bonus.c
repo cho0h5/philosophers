@@ -65,6 +65,7 @@ void	wait_philosophers(t_env *env)
 		waitpid(0, NULL, 0);
 		i++;
 	}
+	sem_post(env->sem_print);
 }
 
 void	philosopher(t_parameter *const param)

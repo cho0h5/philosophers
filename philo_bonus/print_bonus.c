@@ -56,6 +56,5 @@ int	print_died(t_parameter *param)
 	sem_wait(param->env->sem_print);
 	printf("%lld %d died\n",
 		(get_time() - param->env->start_time) / 1000, param->id + 1);
-	// sem_post(param->env->sem_print);
 	return (0);
 }
