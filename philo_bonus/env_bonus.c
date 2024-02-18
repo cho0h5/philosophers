@@ -26,10 +26,9 @@ void	init_env(t_env *env)
 	unlink_semaphores();
 	env->sem_forks = sem_open("philo_bonus_forks", O_CREAT, 0666,
 			env->number_of_philosophers);
-	env->sem_ready = sem_open("philo_bonus_ready", O_CREAT, 0666, 0);
 	env->sem_starve = sem_open("philo_bonus_starve", O_CREAT, 0666, 123);
 	env->sem_print = sem_open("philo_bonus_print", O_CREAT, 0666, 1);
-	if (env->sem_forks == SEM_FAILED || env->sem_ready == SEM_FAILED
+	if (env->sem_forks == SEM_FAILED
 		|| env->sem_starve == SEM_FAILED || env->sem_print == SEM_FAILED)
 		panic("failed to open semaphore");
 }
@@ -37,7 +36,6 @@ void	init_env(t_env *env)
 void	free_env(t_env *env)
 {
 	sem_close(env->sem_forks);
-	sem_close(env->sem_ready);
 	sem_close(env->sem_starve);
 	sem_close(env->sem_print);
 	unlink_semaphores();

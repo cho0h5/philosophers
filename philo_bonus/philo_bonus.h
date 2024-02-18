@@ -26,7 +26,6 @@ typedef struct s_env
 	long long	time_to_sleep;
 	long long	number_of_must_eat;
 	sem_t		*sem_forks;
-	sem_t		*sem_ready;
 	sem_t		*sem_starve;
 	sem_t		*sem_print;
 }	t_env;
@@ -48,7 +47,6 @@ void		init_parameters(t_env *env, t_parameter **parameters);
 void		free_parameters(t_parameter **parameters);
 
 void		spawn_philosophers(t_env *env, t_parameter *parameters);
-void		start_simulation(t_env *env);
 void		join_philosophers(t_env *env);
 
 void		philosopher(t_parameter *const param);

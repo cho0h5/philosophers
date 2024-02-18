@@ -22,7 +22,6 @@ int	main(int argc, char **argv)
 	init_env(&env);
 	init_parameters(&env, &parameters);
 	spawn_philosophers(&env, parameters);
-	start_simulation(&env);
 	join_philosophers(&env);
 	free_parameters(&parameters);
 	free_env(&env);

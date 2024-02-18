@@ -17,17 +17,18 @@
 
 static void	wait_to_start(t_parameter *const param)
 {
-	sem_wait(param->env->sem_ready);
-	sem_post(param->env->sem_ready);
+	while (get_time() < param->env->start_time)
+		usleep(100);
 }
 
 void	spawn_philosophers(t_env *env, t_parameter *parameters)
 {
-	int	i;
-	int	ret;
+	int			i;
+	int			ret;
+	const int	delay = env->number_of_philosophers * 30 * 1000;
 
 	i = 0;
-	env->start_time = get_time();
+	env->start_time = get_time() + delay;
 	while (i < env->number_of_philosophers)
 	{
 		ret = fork();
@@ -43,11 +44,6 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 		}
 		i++;
 	}
-}
-
-void	start_simulation(t_env *env)
-{
-	sem_post(env->sem_ready);
 }
 
 void	join_philosophers(t_env *env)
