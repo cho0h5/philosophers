@@ -12,7 +12,6 @@
 
 #include "philo_bonus.h"
 #include <signal.h>
-#include <sys/signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -21,38 +20,6 @@ static void	wait_to_start(t_parameter *const param)
 {
 	while (get_time() < param->env->start_time)
 		usleep(100);
-}
-
-void	spawn_philosophers(t_env *env, t_parameter *parameters)
-{
-	int			i;
-	int			j;
-	const int	delay = env->number_of_philosophers * 30 * 1000;
-
-	i = 0;
-	env->start_time = get_time() + delay;
-	while (i < env->number_of_philosophers)
-	{
-		env->children[i] = fork();
-		if (env->children[i] == 0)
-		{
-			philosopher(&parameters[i]);
-			destroy_env(env);
-			exit(0);
-		}
-		else if (env->children[i] == -1)
-		{
-			j = 0;
-			while (j < i)
-			{
-				kill(env->children[i], SIGKILL);
-				waitpid(0, NULL, 0);
-				j++;
-			}
-			panic("failed to fork");
-		}
-		i++;
-	}
 }
 
 void	wait_philosophers(t_env *env)

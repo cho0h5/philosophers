@@ -16,6 +16,7 @@ SRCS = 	main_bonus.c				\
 		philosopher_eat_bonus.c		\
 		philosopher_sleep_bonus.c	\
 		philosopher_die_bonus.c		\
+		philosopher_spawn_bonus.c	\
 		print_bonus.c				\
 		time_bonus.c				\
 
