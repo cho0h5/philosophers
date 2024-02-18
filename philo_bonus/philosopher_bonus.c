@@ -35,6 +35,7 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 		if (ret == 0)
 		{
 			philosopher(&parameters[i]);
+			close_env(env);
 			exit(0);
 		}
 		else if (ret == -1)
@@ -81,5 +82,4 @@ void	philosopher(t_parameter *const param)
 			|| print_thinking(param))
 			return ;
 	}
-	// todo: should close semaphore
 }

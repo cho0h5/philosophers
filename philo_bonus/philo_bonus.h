@@ -40,8 +40,9 @@ typedef struct s_parameter
 
 void		parse_argument(int argc, char **argv, t_env *env);
 
-void		free_env(t_env *env);
+void		close_env(t_env *env);
 void		init_env(t_env *env);
+void		unlink_semaphores(void);
 
 void		init_parameters(t_env *env, t_parameter **parameters);
 void		free_parameters(t_parameter **parameters);

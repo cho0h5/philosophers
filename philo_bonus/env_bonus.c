@@ -13,7 +13,7 @@
 #include "philo_bonus.h"
 #include <fcntl.h>
 
-static void	unlink_semaphores(void)
+void	unlink_semaphores(void)
 {
 	sem_unlink("philo_bonus_forks");
 	sem_unlink("philo_bonus_ready");
@@ -33,10 +33,9 @@ void	init_env(t_env *env)
 		panic("failed to open semaphore");
 }
 
-void	free_env(t_env *env)
+void	close_env(t_env *env)
 {
 	sem_close(env->sem_forks);
 	sem_close(env->sem_starve);
 	sem_close(env->sem_print);
-	unlink_semaphores();
 }
