@@ -12,6 +12,7 @@
 
 #include "philo_bonus.h"
 #include <fcntl.h>
+#include <stdlib.h>
 
 void	unlink_semaphores(void)
 {
@@ -23,6 +24,7 @@ void	unlink_semaphores(void)
 
 void	init_env(t_env *env)
 {
+	env->children = malloc(sizeof(pid_t) * env->number_of_philosophers);
 	unlink_semaphores();
 	env->sem_forks = sem_open("philo_bonus_forks", O_CREAT, 0666,
 			env->number_of_philosophers);
@@ -33,8 +35,9 @@ void	init_env(t_env *env)
 		panic("failed to open semaphore");
 }
 
-void	close_env(t_env *env)
+void	destroy_env(t_env *env)
 {
+	free(env->children);
 	sem_close(env->sem_forks);
 	sem_close(env->sem_starve);
 	sem_close(env->sem_print);

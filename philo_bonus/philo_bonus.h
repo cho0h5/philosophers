@@ -25,6 +25,7 @@ typedef struct s_env
 	long long	time_to_eat;
 	long long	time_to_sleep;
 	long long	number_of_must_eat;
+	pid_t		*children;
 	sem_t		*sem_forks;
 	sem_t		*sem_starve;
 	sem_t		*sem_print;
@@ -40,8 +41,8 @@ typedef struct s_parameter
 
 void		parse_argument(int argc, char **argv, t_env *env);
 
-void		close_env(t_env *env);
 void		init_env(t_env *env);
+void		destroy_env(t_env *env);
 void		unlink_semaphores(void);
 
 void		init_parameters(t_env *env, t_parameter **parameters);

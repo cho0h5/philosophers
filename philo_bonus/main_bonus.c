@@ -24,6 +24,6 @@ int	main(int argc, char **argv)
 	spawn_philosophers(&env, parameters);
 	wait_philosophers(&env);
 	free_parameters(&parameters);
-	close_env(&env);
+	destroy_env(&env);
 	unlink_semaphores();
 }
