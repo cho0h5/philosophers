@@ -11,35 +11,13 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 static void	wait_to_start(t_parameter *const param)
 {
 	while (get_time() < param->env->start_time)
 		usleep(100);
-}
-
-void	wait_philosophers(t_env *env)
-{
-	int	i;
-
-	waitpid(0, NULL, 0);
-	i = 0;
-	while (i < env->number_of_philosophers)
-	{
-		kill(env->children[i], SIGKILL);
-		i++;
-	}
-	i = 0;
-	while (i < env->number_of_philosophers - 1)
-	{
-		waitpid(0, NULL, 0);
-		i++;
-	}
-	sem_post(env->sem_print);
 }
 
 void	philosopher(t_parameter *const param)
