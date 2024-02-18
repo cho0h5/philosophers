@@ -32,7 +32,7 @@ static void	*die_checker(void *arg)
 	while (1)
 	{
 		if (check_me_starve(param))
-			exit(0);
+			exit(1);
 		usleep(100);
 	}
 	return (NULL);

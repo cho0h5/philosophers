@@ -21,7 +21,7 @@ int	philosopher_sleep(t_parameter *const param)
 	while (get_time() - start_time_sleep < param->env->time_to_sleep)
 	{
 		if (check_me_starve(param))
-			exit(0);
+			exit(1);
 		usleep(100);
 	}
 	return (0);

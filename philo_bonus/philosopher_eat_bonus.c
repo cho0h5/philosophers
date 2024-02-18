@@ -28,7 +28,7 @@ int	philosopher_eat(t_parameter *const param)
 	while (get_time() - start_time_eat < param->env->time_to_eat)
 	{
 		if (check_me_starve(param))
-			exit(0);
+			exit(1);
 		usleep(100);
 	}
 	return (0);
