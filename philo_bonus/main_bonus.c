@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	init_env(&env);
 	init_parameters(&env, &parameters);
 	spawn_philosophers(&env, parameters);
-	join_philosophers(&env);
+	wait_philosophers(&env);
 	free_parameters(&parameters);
 	close_env(&env);
 	unlink_semaphores();

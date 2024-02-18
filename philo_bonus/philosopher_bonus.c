@@ -47,7 +47,7 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 	}
 }
 
-void	join_philosophers(t_env *env)
+void	wait_philosophers(t_env *env)
 {
 	int	i;
 

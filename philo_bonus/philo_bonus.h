@@ -48,7 +48,7 @@ void		init_parameters(t_env *env, t_parameter **parameters);
 void		free_parameters(t_parameter **parameters);
 
 void		spawn_philosophers(t_env *env, t_parameter *parameters);
-void		join_philosophers(t_env *env);
+void		wait_philosophers(t_env *env);
 
 void		philosopher(t_parameter *const param);
 int			philosopher_eat(t_parameter *const param);
