@@ -2,7 +2,7 @@ NAME = philo_bonus
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS = 	main_bonus.c				\
 		argument_bonus.c			\
@@ -41,7 +41,4 @@ re:
 	make fclean
 	make all
 
-test: all
-	./philo_bonus 10 210 100 100
-
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
