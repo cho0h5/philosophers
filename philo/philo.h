@@ -47,15 +47,15 @@ typedef struct s_parameter
 	long long	count_eat;
 }	t_parameter;
 
-void		parse_argument(int argc, char **argv, t_env *env);
+int			parse_argument(int argc, char **argv, t_env *env);
 
+int			init_env(t_env *env);
 void		free_env(t_env *env);
-void		init_env(t_env *env);
 
-void		init_parameters(t_env *env, t_parameter **parameters);
+int			init_parameters(t_env *env, t_parameter **parameters);
 void		free_parameters(t_parameter **parameters);
 
-void		spawn_philosophers(t_env *env, t_parameter *parameters);
+int			spawn_philosophers(t_env *env, t_parameter *parameters);
 void		start_simulation(t_env *env);
 void		join_philosophers(t_env *env);
 
@@ -80,7 +80,7 @@ void		release_forks(t_parameter *const param);
 
 size_t		ft_strlen(const char *s);
 long long	parse_int(char *str);
-void		panic(char *error_message);
+int			panic(char *error_message);
 long long	get_time(void);
 
 #endif

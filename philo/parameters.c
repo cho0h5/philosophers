@@ -13,13 +13,13 @@
 #include "philo.h"
 #include <stdlib.h>
 
-void	init_parameters(t_env *env, t_parameter **parameters)
+int	init_parameters(t_env *env, t_parameter **parameters)
 {
 	int	i;
 
 	*parameters = malloc(sizeof(t_parameter) * env->number_of_philosophers);
 	if (parameters == NULL)
-		panic("failed to malloc");
+		return (panic("failed to malloc"));
 	i = 0;
 	while (i < env->number_of_philosophers)
 	{
@@ -29,6 +29,7 @@ void	init_parameters(t_env *env, t_parameter **parameters)
 		(*parameters)[i].count_eat = 0;
 		i++;
 	}
+	return (0);
 }
 
 void	free_parameters(t_parameter **parameters)

@@ -18,7 +18,7 @@ static void	wait_to_start(t_parameter *const param)
 	pthread_mutex_unlock(&param->env->mutex_ready);
 }
 
-void	spawn_philosophers(t_env *env, t_parameter *parameters)
+int	spawn_philosophers(t_env *env, t_parameter *parameters)
 {
 	int	i;
 
@@ -27,9 +27,10 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 	{
 		if (pthread_create(&env->philosophers[i], NULL,
 				philosopher, &parameters[i]) != 0)
-			panic("failed to create thread");
+			return (panic("failed to create thread"));
 		i++;
 	}
+	return (0);
 }
 
 void	start_simulation(t_env *env)
