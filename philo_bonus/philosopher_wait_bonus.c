@@ -12,23 +12,34 @@
 
 #include "philo_bonus.h"
 #include <signal.h>
-#include <stdlib.h>
+#include <sys/wait.h>
 
-void	wait_philosophers(t_env *env)
+static void	kill_children(t_env *const env)
 {
 	int	i;
 
-	waitpid(0, NULL, 0);
 	i = 0;
 	while (i < env->number_of_philosophers)
 	{
 		kill(env->children[i], SIGKILL);
 		i++;
 	}
+}
+
+void	wait_philosophers(t_env *const env)
+{
+	int	i;
+	int	stat_loc;
+
 	i = 0;
-	while (i < env->number_of_philosophers - 1)
+	while (i < env->number_of_philosophers)
 	{
-		waitpid(0, NULL, 0);
+		waitpid(0, &stat_loc, 0);
+		if (WIFEXITED(stat_loc))
+		{
+			if (WEXITSTATUS(stat_loc) == 1)
+				kill_children(env);
+		}
 		i++;
 	}
 	sem_post(env->sem_print);
