@@ -27,7 +27,7 @@ int	check_me_starve(t_parameter *const param)
 
 static void	*die_checker(void *arg)
 {
-	t_parameter *const	param = (t_parameter *const)arg;
+	t_parameter *const	param = (t_parameter * const)arg;
 
 	while (1)
 	{
@@ -40,7 +40,7 @@ static void	*die_checker(void *arg)
 
 void	create_die_checker(t_parameter *const param)
 {
-	pthread_t tid;
+	pthread_t	tid;
 
 	if (pthread_create(&tid, NULL, die_checker, param))
 		panic("failed to pthread_create");
