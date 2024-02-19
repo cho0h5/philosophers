@@ -20,7 +20,7 @@ int	check_eat_done(t_parameter *const param)
 			&& param->count_eat >= param->env->number_of_must_eat));
 }
 
-int	philosopher_eat(t_parameter *const param)
+void	philosopher_eat(t_parameter *const param)
 {
 	const long long	start_time_eat = get_time();
 
@@ -31,5 +31,4 @@ int	philosopher_eat(t_parameter *const param)
 			exit(1);
 		usleep(100);
 	}
-	return (0);
 }

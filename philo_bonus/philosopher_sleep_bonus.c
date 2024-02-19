@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int	philosopher_sleep(t_parameter *const param)
+void	philosopher_sleep(t_parameter *const param)
 {
 	const long long	start_time_sleep = get_time();
 
@@ -24,5 +24,4 @@ int	philosopher_sleep(t_parameter *const param)
 			exit(1);
 		usleep(100);
 	}
-	return (0);
 }

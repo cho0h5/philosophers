@@ -26,19 +26,19 @@ void	philosopher(t_parameter *const param)
 	print_thinking(param);
 	param->last_eat_time = param->env->start_time;
 	create_die_checker(param);
-	if (param->id % 2 == 0 && philosopher_sleep(param))
-		return ;
+	if (param->id % 2 == 0)
+		philosopher_sleep(param);
 	while (1)
 	{
 		take_forks(param);
-		if (print_eating(param) || philosopher_eat(param))
-			return ;
+		print_eating(param);
+		philosopher_eat(param);
 		release_forks(param);
 		param->count_eat += 1;
 		if (check_eat_done(param))
 			return ;
-		if (print_sleeping(param) || philosopher_sleep(param)
-			|| print_thinking(param))
-			return ;
+		print_sleeping(param);
+		philosopher_sleep(param);
+		print_thinking(param);
 	}
 }

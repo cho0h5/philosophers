@@ -52,8 +52,8 @@ void		spawn_philosophers(t_env *env, t_parameter *parameters);
 void		wait_philosophers(t_env *env);
 
 void		philosopher(t_parameter *const param);
-int			philosopher_eat(t_parameter *const param);
-int			philosopher_sleep(t_parameter *const param);
+void		philosopher_eat(t_parameter *const param);
+void		philosopher_sleep(t_parameter *const param);
 int			check_eat_done(t_parameter *const param);
 int			check_me_starve(t_parameter *const param);
 void		create_die_checker(t_parameter *const param);
