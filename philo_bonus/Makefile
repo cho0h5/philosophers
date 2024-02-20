@@ -7,7 +7,6 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS = 	main_bonus.c				\
 		argument_bonus.c			\
 		parse_int_bonus.c			\
-		ft_strlen_bonus.c			\
 		env_bonus.c					\
 		panic_bonus.c				\
 		parameters_bonus.c			\
@@ -20,6 +19,12 @@ SRCS = 	main_bonus.c				\
 		philosopher_wait_bonus.c	\
 		print_bonus.c				\
 		time_bonus.c				\
+		ft_strlen_bonus.c			\
+		ft_calloc_bonus.c			\
+		ft_itoa_bonus.c				\
+		ft_strjoin_bonus.c			\
+		ft_strlcat_bonus.c			\
+		ft_strlcpy_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 

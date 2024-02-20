@@ -67,9 +67,15 @@ int			print_died(t_parameter *param);
 void		take_forks(t_parameter *const param);
 void		release_forks(t_parameter *const param);
 
-size_t		ft_strlen(const char *s);
 long long	parse_int(char *str);
 void		panic(char *error_message);
 long long	get_time(void);
+
+size_t		ft_strlen(const char *s);
+void		*ft_calloc(size_t count, size_t size);
+char		*ft_itoa(int n);
+char		*ft_strjoin(char const *s1, char const *s2);
+size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif
