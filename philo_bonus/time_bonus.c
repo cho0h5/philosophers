@@ -12,7 +12,6 @@
 
 #include "philo_bonus.h"
 #include <sys/time.h>
-#include <stdlib.h>
 
 long long	get_time(void)
 {

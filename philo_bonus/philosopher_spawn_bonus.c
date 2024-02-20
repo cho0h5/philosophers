@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
-#include <sys/wait.h>
 
 static void	handling_fork_exception(pid_t *children, int number_of_created)
 {
