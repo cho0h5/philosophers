@@ -35,6 +35,8 @@ typedef struct s_parameter
 {
 	t_env		*env;
 	int			id;
+	char		*eat_time_sem_name;
+	sem_t		*eat_time_sem;
 	long long	last_eat_time;
 	long long	count_eat;
 }	t_parameter;
@@ -46,7 +48,7 @@ void		destroy_env(t_env *env);
 void		unlink_semaphores(void);
 
 void		init_parameters(t_env *env, t_parameter **parameters);
-void		free_parameters(t_parameter **parameters);
+void		free_parameters(t_parameter **parameters, int number_of_philosophers);
 
 void		spawn_philosophers(t_env *env, t_parameter *parameters);
 void		wait_philosophers(t_env *env);

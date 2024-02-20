@@ -31,7 +31,8 @@ void	init_env(t_env *env)
 	env->sem_starve = sem_open("philo_bonus_starve", O_CREAT, 0666, 123);
 	env->sem_print = sem_open("philo_bonus_print", O_CREAT, 0666, 1);
 	if (env->sem_forks == SEM_FAILED
-		|| env->sem_starve == SEM_FAILED || env->sem_print == SEM_FAILED)
+		|| env->sem_starve == SEM_FAILED
+		|| env->sem_print == SEM_FAILED)
 		panic("failed to open semaphore");
 }
 
