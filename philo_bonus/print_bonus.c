@@ -12,7 +12,7 @@
 
 #include "philo_bonus.h"
 #include <stdio.h>
-#include <sys/semaphore.h>
+#include <semaphore.h>
 #include <unistd.h>
 
 int	print_fork(t_parameter *param)
