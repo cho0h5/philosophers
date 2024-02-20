@@ -17,7 +17,7 @@
 
 int	check_me_starve(t_parameter *const param)
 {
-	if (get_time() - param->last_eat_time > param->env->time_to_die)
+	if (get_time() - get_last_eat_time(param) > param->env->time_to_die)
 	{
 		print_died(param);
 		return (1);

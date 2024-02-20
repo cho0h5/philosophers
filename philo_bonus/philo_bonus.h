@@ -61,6 +61,10 @@ int			check_eat_done(t_parameter *const param);
 int			check_me_starve(t_parameter *const param);
 void		create_die_checker(t_parameter *const param);
 
+long long	get_last_eat_time(t_parameter *const param);
+void		set_last_eat_time(t_parameter *const param,
+				long long last_eat_time);
+
 int			print_fork(t_parameter *param);
 int			print_eating(t_parameter *param);
 int			print_sleeping(t_parameter *param);
