@@ -13,6 +13,24 @@
 #include "philo_bonus.h"
 #include <sys/wait.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
+
+static void	init_philosopher(t_parameter *const param)
+{
+	char	*str_id;
+
+	str_id = ft_itoa(param->id);
+	if (str_id == NULL)
+		panic("failed to malloc");
+	param->str_last_eat_time = ft_strjoin("philo_bonus_eat_", str_id);
+	if (param->str_last_eat_time == NULL)
+		panic("failed to malloc");
+	free(str_id);
+	sem_unlink(param->str_last_eat_time);
+	param->sem_last_eat_time = sem_open(param->str_last_eat_time,
+			O_CREAT, 0666, 1);
+}
 
 static void	wait_to_start(t_parameter *const param)
 {
@@ -22,6 +40,7 @@ static void	wait_to_start(t_parameter *const param)
 
 void	philosopher(t_parameter *const param)
 {
+	init_philosopher(param);
 	wait_to_start(param);
 	print_thinking(param);
 	sem_wait(param->sem_last_eat_time);
