@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <sys/semaphore.h>
+#include <semaphore.h>
 #include <unistd.h>
 
 void	take_forks(t_parameter *const param)
