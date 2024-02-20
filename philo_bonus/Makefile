@@ -2,7 +2,7 @@ NAME = philo_bonus
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS = 	main_bonus.c				\
 		argument_bonus.c			\

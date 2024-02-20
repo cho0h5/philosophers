@@ -17,11 +17,14 @@
 
 int	check_me_starve(t_parameter *const param)
 {
+	sem_wait(param->sem_last_eat_time);
 	if (get_time() - param->last_eat_time > param->env->time_to_die)
 	{
 		print_died(param);
+		sem_post(param->sem_last_eat_time);
 		return (1);
 	}
+	sem_post(param->sem_last_eat_time);
 	return (0);
 }
 

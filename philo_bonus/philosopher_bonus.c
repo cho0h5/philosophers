@@ -24,7 +24,9 @@ void	philosopher(t_parameter *const param)
 {
 	wait_to_start(param);
 	print_thinking(param);
+	sem_wait(param->sem_last_eat_time);
 	param->last_eat_time = param->env->start_time;
+	sem_post(param->sem_last_eat_time);
 	create_die_checker(param);
 	if (param->id % 2 == 0)
 		philosopher_sleep(param);
