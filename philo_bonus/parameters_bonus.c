@@ -12,10 +12,12 @@
 
 #include "philo_bonus.h"
 #include <stdlib.h>
+#include <semaphore.h>
 
 void	init_parameters(t_env *env, t_parameter **parameters)
 {
-	int	i;
+	int		i;
+	char	*str_id;
 
 	*parameters = malloc(sizeof(t_parameter) * env->number_of_philosophers);
 	if (parameters == NULL)
@@ -29,10 +31,22 @@ void	init_parameters(t_env *env, t_parameter **parameters)
 		(*parameters)[i].count_eat = 0;
 		i++;
 	}
+	str_id = ft_itoa((*parameters)->id);
+	if (str_id == NULL)
+		panic("failed to malloc");
+	(*parameters)->str_last_eat_time = ft_strjoin("philo_bonus_eat_", str_id);
+	if ((*parameters)->str_last_eat_time == NULL)
+		panic("failed to malloc");
+	free(str_id);
+	sem_unlink((*parameters)->str_last_eat_time);
+	sem_open((*parameters)->str_last_eat_time, O_CREAT, 0666, 1);
 }
 
 void	free_parameters(t_parameter **parameters)
 {
+	sem_close((*parameters)->sem_last_eat_time);
+	sem_unlink((*parameters)->str_last_eat_time);
+	free((*parameters)->str_last_eat_time);
 	free(*parameters);
 	*parameters = NULL;
 }

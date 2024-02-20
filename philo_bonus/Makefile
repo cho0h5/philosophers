@@ -2,7 +2,7 @@ NAME = philo_bonus
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 
 SRCS = 	main_bonus.c				\
 		argument_bonus.c			\
@@ -20,6 +20,11 @@ SRCS = 	main_bonus.c				\
 		philosopher_wait_bonus.c	\
 		print_bonus.c				\
 		time_bonus.c				\
+		ft_itoa_bonus.c				\
+		ft_calloc_bonus.c			\
+		ft_strlcat_bonus.c			\
+		ft_strlcpy_bonus.c			\
+		ft_strjoin_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
