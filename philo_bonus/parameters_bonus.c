@@ -12,6 +12,7 @@
 
 #include "philo_bonus.h"
 #include <stdlib.h>
+#include <fcntl.h>
 #include <semaphore.h>
 
 void	init_parameters(t_env *env, t_parameter **parameters)
