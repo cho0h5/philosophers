@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <semaphore.h>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -25,9 +24,7 @@ void	philosopher_eat(t_parameter *const param)
 {
 	const long long	start_time_eat = get_time();
 
-	sem_wait(param->sem_last_eat_time);
 	param->last_eat_time = get_time();
-	sem_post(param->sem_last_eat_time);
 	while (get_time() - start_time_eat < param->env->time_to_eat)
 	{
 		if (check_me_starve(param))
