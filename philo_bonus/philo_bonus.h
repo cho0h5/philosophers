@@ -15,7 +15,7 @@
 
 # include <semaphore.h>
 
-# define NOT_INT (900000000000)
+# define NOT_INT 900000000000
 
 typedef struct s_env
 {

@@ -15,7 +15,7 @@
 
 # include <pthread.h>
 
-# define NOT_INT (900000000000)
+# define NOT_INT 900000000000
 
 typedef struct s_fork
 {
