@@ -42,7 +42,6 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 		if (env->children[i] == 0)
 		{
 			philosopher(&parameters[i]);
-			free_parameters(&parameters);
 			destroy_env(env);
 			exit(0);
 		}
