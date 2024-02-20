@@ -48,7 +48,8 @@ void		destroy_env(t_env *env);
 void		unlink_semaphores(void);
 
 void		init_parameters(t_env *env, t_parameter **parameters);
-void		free_parameters(t_parameter **parameters, int number_of_philosophers);
+void		free_parameters(t_parameter **parameters,
+				int number_of_philosophers);
 
 void		spawn_philosophers(t_env *env, t_parameter *parameters);
 void		wait_philosophers(t_env *env);

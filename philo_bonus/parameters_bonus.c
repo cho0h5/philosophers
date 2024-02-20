@@ -55,7 +55,6 @@ void	init_parameters(t_env *env, t_parameter **parameters)
 	}
 }
 
-#include <stdio.h>
 void	free_parameters(t_parameter **parameters, int number_of_philosophers)
 {
 	int	i;
