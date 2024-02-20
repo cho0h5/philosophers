@@ -43,9 +43,6 @@ void	spawn_philosophers(t_env *env, t_parameter *parameters)
 		if (env->children[i] == 0)
 		{
 			philosopher(&parameters[i]);
-			sem_close(parameters[i].sem_last_eat_time);
-			sem_unlink(parameters[i].str_last_eat_time);
-			free(parameters[i].str_last_eat_time);
 			free_parameters(&parameters);
 			destroy_env(env);
 			exit(0);
